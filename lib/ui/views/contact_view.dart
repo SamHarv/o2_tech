@@ -1,3 +1,4 @@
+import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -48,20 +49,10 @@ class ContactView extends StatelessWidget {
               children: [
                 // Email
                 IconButton(
-                  tooltip: "Email Sam",
+                  tooltip: "Contact Sam",
                   icon: FaIcon(FontAwesomeIcons.envelope),
-                  onPressed:
-                      () => UrlLauncher.launch(
-                        "mailto:oxygentech@protonmail.com",
-                      ),
+                  onPressed: () => Beamer.of(context).beamToNamed("/contact"),
                 ),
-                // Github
-                // IconButton(
-                //   tooltip: "Github",
-                //   icon: FaIcon(FontAwesomeIcons.github),
-                //   onPressed:
-                //       () => UrlLauncher.launch("https://github.com/SamHarv"),
-                // ),
                 // Youtube
                 IconButton(
                   tooltip: "Youtube",
@@ -94,7 +85,7 @@ class ContactView extends StatelessWidget {
                   icon: Icon(Icons.folder, size: 28),
                   // icon: FaIcon(FontAwesomeIcons.info),
                   onPressed: () {
-                    // TODO: Show privacy policy & T&Cs (collapsible and enable copy & paste)
+                    Beamer.of(context).beamToNamed("/legal");
                   },
                 ),
               ],

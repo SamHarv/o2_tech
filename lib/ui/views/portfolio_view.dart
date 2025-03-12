@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:o2_tech/ui/views/testimonials_view.dart';
 
 import '/config/constants.dart';
 import 'contact_view.dart';
@@ -73,7 +74,7 @@ class _PortfolioViewState extends State<PortfolioView> {
               ),
               onPressed: () {
                 pageController.animateToPage(
-                  10,
+                  11,
                   duration: const Duration(seconds: 1),
                   curve: Curves.easeInOut,
                 );
@@ -155,8 +156,7 @@ class _PortfolioViewState extends State<PortfolioView> {
                 AppView(app: apps[6]),
                 AppView(app: apps[7]),
                 DigbyView(),
-
-                // TODO: Testimonials
+                TestimonialsView(),
                 ContactView(),
               ],
             ),
