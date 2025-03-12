@@ -9,6 +9,8 @@ import 'firebase_options.dart';
 
 import 'config/constants.dart';
 
+// TODO: Custom loading wheel animation
+
 Future<void> main() async {
   // Set the status bar colour to black
   SystemChrome.setSystemUIOverlayStyle(

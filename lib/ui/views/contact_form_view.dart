@@ -1,6 +1,7 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:o2_tech/logic/services/email_service.dart';
 import 'package:o2_tech/ui/widgets/textfield_widget.dart';
 
 import '../../config/constants.dart';
@@ -96,13 +97,35 @@ class _ContactFormViewState extends State<ContactFormView> {
                       style: ButtonStyle(
                         backgroundColor: WidgetStateProperty.all<Color>(blue),
                       ),
-                      onPressed: () {
+                      onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text("Processing Data")),
-                          );
+                          try {
+                            await EmailService.sendEmail(
+                              name: _nameController.text.trim(),
+                              email: _emailController.text.trim(),
+                              message: _messageController.text.trim(),
+                            );
+                            // ignore: use_build_context_synchronously
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                backgroundColor: blue,
+                                content: Text(
+                                  "Message sent successfully.",
+                                  style: TextStyle(color: white),
+                                ),
+                              ),
+                            );
+                          } catch (e) {
+                            // ignore: use_build_context_synchronously
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  "An error occurred. Please try again later.",
+                                ),
+                              ),
+                            );
+                          }
                         }
-                        // TODO: Send data to backend
                       },
                       child: Text(
                         "Submit",
