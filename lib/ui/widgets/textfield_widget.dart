@@ -10,6 +10,7 @@ class TextFieldWidget extends StatefulWidget {
   final TextCapitalization capitalisation;
   final int maxLines;
   final int minLines;
+
   const TextFieldWidget({
     super.key,
     required this.controller,
@@ -29,6 +30,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
     borderRadius: BorderRadius.circular(32),
     borderSide: BorderSide(color: white),
   );
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -52,8 +54,14 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
       textCapitalization: widget.capitalisation,
       style: GoogleFonts.openSans(textStyle: TextStyle(color: white)),
       validator: (value) {
-        if (value!.isEmpty) {
+        if (value == null || value.isEmpty) {
           return "Please enter your ${widget.label.toLowerCase()}";
+        }
+        // Email validation
+        if (widget.inputType == TextInputType.emailAddress &&
+            !value.contains('@') &&
+            !value.contains('.')) {
+          return "Enter a valid email address";
         }
         return null;
       },

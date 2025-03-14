@@ -6,7 +6,6 @@ const white = Colors.white;
 const blue = Color.fromARGB(255, 0, 195, 255);
 // const blue = Color.fromARGB(255, 28, 72, 166);
 
-// TODO: update logo?
 // TODO: Update Splash screen
 
 // Logo for portfolio

@@ -2,8 +2,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:o2_tech/ui/views/testimonials_view.dart';
+import 'package:o2_tech/ui/widgets/loading_widget.dart';
 
-import '/config/constants.dart';
 import 'contact_view.dart';
 import 'digby_view.dart';
 import 'home_view.dart';
@@ -51,7 +51,8 @@ class _PortfolioViewState extends State<PortfolioView> {
                   curve: Curves.easeInOut,
                 );
               },
-              child: SizedBox(height: 40, child: Image.asset(logo)),
+              child: LoadingWidget(size: 50, duration: 10000),
+              //SizedBox(height: 40, child: Image.asset(logo)),
             ),
           ),
         ),
@@ -84,6 +85,7 @@ class _PortfolioViewState extends State<PortfolioView> {
           SizedBox(width: 16),
         ],
       ),
+      // body: Center(child: LoadingWidget(duration: 2500)),
       body: ScrollConfiguration(
         // Enable drag scrolling with mouse
         behavior: ScrollConfiguration.of(context).copyWith(

@@ -9,9 +9,8 @@ import 'firebase_options.dart';
 
 import 'config/constants.dart';
 
-// TODO: Custom loading wheel animation
-
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   // Set the status bar colour to black
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
@@ -24,7 +23,6 @@ Future<void> main() async {
     ),
   );
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-  WidgetsFlutterBinding.ensureInitialized();
   usePathUrlStrategy();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
@@ -53,10 +51,8 @@ class MyApp extends StatelessWidget {
           bodyColor: white,
           displayColor: white,
         ),
-
         appBarTheme: AppBarTheme(
           color: black,
-
           systemOverlayStyle: SystemUiOverlayStyle.dark.copyWith(
             statusBarColor: black,
             systemNavigationBarColor: black,

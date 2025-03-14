@@ -37,87 +37,165 @@
 
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
     name="viewport">
-  <style id="splash-screen-style">
-    html {
-      height: 100%
+
+
+  <!-- Custom CSS for the splash screen -->
+  <style>
+    :root {
+      --blue-color: #00C3FF;
+      --circle-size: 60px;
+      --orbit-size: 80px;
+      --animation-duration: 3.5s;
     }
 
     body {
       margin: 0;
-      min-height: 100%;
+      padding: 0;
+      overflow: hidden;
       background-color: #000000;
-      background-size: 100% 100%;
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     }
 
-    .center {
-      margin: 0;
+    #splash-screen {
+      text-align: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      background-color: #000000;
+      opacity: 1;
+      transition: opacity 0.5s ease-out;
+    }
+
+    /* Orbit paths for each circle */
+    .orbit-path {
       position: absolute;
       top: 50%;
       left: 50%;
-      -ms-transform: translate(-50%, -50%);
+      width: 80px;
+      height: 80px;
+      margin-left: -40px;
+      margin-top: -40px;
+      /* Uncomment to debug orbit path 
+      border: 1px dashed rgba(0, 216, 255, 0.2); 
+      border-radius: 50%; */
+    }
+
+    /* Animation Container - matching the SizedBox in your Flutter code */
+    .logo-animation {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      margin: 0 auto;
+    }
+
+    /* Logo Circles - with updated orbit radius to match your code */
+    .circle {
+      position: absolute;
+      width: var(--circle-size);
+      height: var(--circle-size);
+      background-color: var(--blue-color);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
       transform: translate(-50%, -50%);
     }
 
-    .contain {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
+    /* Both circles rotating clockwise */
+    .first-orbit {
+      animation: rotate var(--animation-duration) linear infinite;
     }
 
-    .stretch {
-      display: block;
-      width: 100%;
-      height: 100%;
+    .second-orbit {
+      /* Initial rotation of 180 degrees to place the circle opposite */
+      transform: rotate(180deg);
+      animation: rotate var(--animation-duration) linear infinite;
     }
 
-    .cover {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    .first-circle {
+      left: 100%;
     }
 
-    .bottom {
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      -ms-transform: translate(-50%, 0);
-      transform: translate(-50%, 0);
+    .second-circle {
+      left: 100%;
+      /* Same as first circle, but the orbit path starts rotated 180° */
     }
 
-    .bottomLeft {
-      position: absolute;
-      bottom: 0;
-      left: 0;
+    @keyframes rotate {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
     }
 
-    .bottomRight {
-      position: absolute;
-      bottom: 0;
-      right: 0;
+    /* Fix for the second orbit initial position + animation */
+    .second-orbit {
+      animation-name: rotate-with-offset;
+    }
+
+    @keyframes rotate-with-offset {
+      0% {
+        transform: rotate(180deg);
+      }
+
+      100% {
+        transform: rotate(540deg);
+        /* 180 + 360 degrees */
+      }
+    }
+
+    /* Hide default loading indicator */
+    .flutter-loader {
+      display: none;
     }
   </style>
-  <script id="splash-screen-script">
-    function removeSplashFromWeb() {
-      document.getElementById("splash")?.remove();
-      document.getElementById("splash-branding")?.remove();
-      document.body.style.background = "transparent";
-    }
-  </script>
-  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+
+
 </head>
 
 <body>
-  <picture id="splash">
-    <source
-      srcset="splash/img/light-1x.png 1x, splash/img/light-2x.png 2x, splash/img/light-3x.png 3x, splash/img/light-4x.png 4x"
-      media="(prefers-color-scheme: light)">
-    <source
-      srcset="splash/img/dark-1x.png 1x, splash/img/dark-2x.png 2x, splash/img/dark-3x.png 3x, splash/img/dark-4x.png 4x"
-      media="(prefers-color-scheme: dark)">
-    <img class="center" aria-hidden="true" src="splash/img/light-1x.png" alt="">
-  </picture>
+  <!-- Custom splash screen that shows before Flutter loads -->
+  <div id="splash-screen">
+    <div class="logo-animation">
+      <!-- First circle and its orbit -->
+      <div class="orbit-path first-orbit">
+        <div class="circle first-circle"></div>
+      </div>
+
+      <!-- Second circle and its orbit -->
+      <div class="orbit-path second-orbit">
+        <div class="circle second-circle"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- This script will hide the splash screen when Flutter is ready -->
+  <script>
+    window.addEventListener('flutter-first-frame', function () {
+      var splash = document.getElementById('splash-screen');
+      if (splash) {
+        splash.style.opacity = '0';
+        setTimeout(function () {
+          splash.style.display = 'none';
+        }, 500);
+      }
+    });
+  </script>
+
   <script src="flutter_bootstrap.js" async=""></script>
 
 
