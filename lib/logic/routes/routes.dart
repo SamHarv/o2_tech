@@ -19,7 +19,7 @@ final routerDelegate = BeamerDelegate(
               child: PortfolioView(),
             );
           },
-          '/legal': (context, state, data) {
+          '/privacy': (context, state, data) {
             return BeamPage(
               key: const ValueKey('privacy'),
               type: BeamPageType.noTransition,

@@ -31,7 +31,6 @@ class _ContactFormViewState extends State<ContactFormView> {
   // List of challenges with answers
   final List<Map<String, String>> _challenges = [
     {'question': 'What color is the sky on a clear day?', 'answer': 'blue'},
-    {'question': 'How many legs does a cat have?', 'answer': '4'},
     {'question': 'What is the opposite of hot?', 'answer': 'cold'},
     {'question': 'What do you call frozen water?', 'answer': 'ice'},
     {'question': 'What is 7 + 8?', 'answer': '15'},
