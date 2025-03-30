@@ -1,5 +1,9 @@
 import 'dart:math';
 
+// import web package
+
+import 'package:web/web.dart' as web;
+
 import 'package:beamer/beamer.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
@@ -69,6 +73,15 @@ class _ContactFormViewState extends State<ContactFormView> {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     WebBrowserInfo webBrowserInfo = await deviceInfo.webBrowserInfo;
     BrowserName browser = webBrowserInfo.browserName;
+    if (web.window.navigator.userAgent.toLowerCase().contains("fbav") ||
+        (web.window.navigator.userAgent.toLowerCase().contains("mozilla") &&
+            web.window.navigator.userAgent.toLowerCase().contains("mobile")) ||
+        web.window.navigator.userAgent.toLowerCase().contains("instagram") ||
+        web.document.referrer.toLowerCase().contains("instagram.com")) {
+      // If the user is using Facebook or Instagram in-app browser
+      // we can assume they are using a WebView
+      browser = BrowserName.safari;
+    }
     return browser;
   }
 
@@ -90,10 +103,13 @@ class _ContactFormViewState extends State<ContactFormView> {
           }
           return Scaffold(
             resizeToAvoidBottomInset:
-                snapshot.data == BrowserName.safari ||
-                        snapshot.data == BrowserName.firefox
-                    ? true
-                    : false,
+                snapshot.data == BrowserName.samsungInternet ||
+                        snapshot.data == BrowserName.opera ||
+                        snapshot.data == BrowserName.chrome ||
+                        snapshot.data == BrowserName.msie ||
+                        snapshot.data == BrowserName.edge
+                    ? false
+                    : true,
             appBar: AppBar(
               leading: IconButton(
                 onPressed: () {

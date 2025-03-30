@@ -85,7 +85,7 @@ class ContactView extends StatelessWidget {
                   icon: Icon(Icons.folder, size: 28),
                   // icon: FaIcon(FontAwesomeIcons.info),
                   onPressed: () {
-                    Beamer.of(context).beamToNamed("/legal");
+                    Beamer.of(context).beamToNamed("/privacy");
                   },
                 ),
               ],
