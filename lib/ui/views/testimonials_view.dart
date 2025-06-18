@@ -22,11 +22,14 @@ class TestimonialsView extends StatelessWidget {
               ? Padding(
                 padding: const EdgeInsets.fromLTRB(80, 0, 80, 24),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // App information
                     SizedBox(
-                      width: mediaWidth / 2 - 48,
+                      width:
+                          mediaWidth > 1050
+                              ? 1050 / 2 - 48
+                              : mediaWidth / 2 - 48,
                       child: Column(
                         spacing: 32,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -37,7 +40,10 @@ class TestimonialsView extends StatelessWidget {
                             children: [
                               ConstrainedBox(
                                 constraints: BoxConstraints(
-                                  maxWidth: mediaWidth / 2 - 80,
+                                  maxWidth:
+                                      mediaWidth > 1050
+                                          ? 1050 / 2 - 80
+                                          : mediaWidth / 2 - 80,
                                 ),
                                 child: FadeInWidget(
                                   widgetToFadeIn: Text(
@@ -68,7 +74,10 @@ class TestimonialsView extends StatelessWidget {
                             children: [
                               ConstrainedBox(
                                 constraints: BoxConstraints(
-                                  maxWidth: mediaWidth / 2 - 48,
+                                  maxWidth:
+                                      mediaWidth > 1050
+                                          ? 1050 / 2 - 48
+                                          : mediaWidth / 2 - 48,
                                 ),
                                 child: FadeInWidget(
                                   widgetToFadeIn: Text(
@@ -90,7 +99,10 @@ class TestimonialsView extends StatelessWidget {
                             children: [
                               ConstrainedBox(
                                 constraints: BoxConstraints(
-                                  maxWidth: mediaWidth / 2 - 80,
+                                  maxWidth:
+                                      mediaWidth > 1050
+                                          ? 1050 / 2 - 80
+                                          : mediaWidth / 2 - 80,
                                 ),
                                 child: FadeInWidget(
                                   widgetToFadeIn: Text(
@@ -121,7 +133,10 @@ class TestimonialsView extends StatelessWidget {
                             children: [
                               ConstrainedBox(
                                 constraints: BoxConstraints(
-                                  maxWidth: mediaWidth / 2 - 48,
+                                  maxWidth:
+                                      mediaWidth > 1050
+                                          ? 1050 / 2 - 48
+                                          : mediaWidth / 2 - 48,
                                 ),
                                 child: FadeInWidget(
                                   widgetToFadeIn: Text(
@@ -143,7 +158,10 @@ class TestimonialsView extends StatelessWidget {
                     // Image of Josh
                     ConstrainedBox(
                       constraints: BoxConstraints(
-                        maxWidth: mediaWidth / 2 - 160,
+                        maxWidth:
+                            mediaWidth > 1050
+                                ? 1050 / 2 - 160
+                                : mediaWidth / 2 - 160,
                       ),
                       child: Padding(
                         padding: const EdgeInsets.only(left: 32),

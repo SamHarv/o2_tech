@@ -6,6 +6,8 @@ import '/config/constants.dart';
 import '/logic/services/adaptive_font.dart';
 import '../widgets/text_heading_widget.dart';
 
+// TODO: Limit width of home view
+
 class HomeView extends StatefulWidget {
   /// UI to display home page
 
@@ -55,7 +57,10 @@ class _HomeViewState extends State<HomeView> {
                 children: [
                   // Heading to break over 2 lines if needed
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(96, 24, 24, 24),
+                    padding:
+                        mediaWidth > 1250
+                            ? const EdgeInsets.fromLTRB(200, 24, 24, 24)
+                            : const EdgeInsets.fromLTRB(96, 24, 24, 24),
                     child: ConstrainedBox(
                       constraints: BoxConstraints(
                         maxWidth: mediaWidth * 0.5 - 48,
@@ -67,7 +72,10 @@ class _HomeViewState extends State<HomeView> {
                   ),
                   // Subheading
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(96, 0, 24, 24),
+                    padding:
+                        mediaWidth > 1250
+                            ? const EdgeInsets.fromLTRB(200, 24, 24, 24)
+                            : const EdgeInsets.fromLTRB(96, 24, 24, 24),
                     child: ConstrainedBox(
                       constraints: BoxConstraints(
                         maxWidth: mediaWidth * 0.5 - 48,

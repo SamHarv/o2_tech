@@ -49,12 +49,14 @@ class ContactView extends StatelessWidget {
               children: [
                 // Email
                 IconButton(
+                  hoverColor: blue,
                   tooltip: "Contact Sam",
                   icon: FaIcon(FontAwesomeIcons.envelope),
                   onPressed: () => Beamer.of(context).beamToNamed("/contact"),
                 ),
                 // Youtube
                 IconButton(
+                  hoverColor: blue,
                   tooltip: "Youtube",
                   icon: FaIcon(FontAwesomeIcons.youtube),
                   onPressed:
@@ -64,6 +66,7 @@ class ContactView extends StatelessWidget {
                 ),
                 // Instagram
                 IconButton(
+                  hoverColor: blue,
                   tooltip: "Instagram",
                   icon: FaIcon(FontAwesomeIcons.instagram),
                   onPressed:
@@ -73,6 +76,7 @@ class ContactView extends StatelessWidget {
                 ),
                 // Facebook
                 IconButton(
+                  hoverColor: blue,
                   tooltip: "Facebook",
                   icon: FaIcon(FontAwesomeIcons.facebook),
                   onPressed:
@@ -81,6 +85,7 @@ class ContactView extends StatelessWidget {
                       ),
                 ),
                 IconButton(
+                  hoverColor: blue,
                   tooltip: "Privacy & Terms",
                   icon: Icon(Icons.folder, size: 28),
                   // icon: FaIcon(FontAwesomeIcons.info),

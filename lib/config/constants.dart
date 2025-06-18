@@ -4,9 +4,6 @@ import 'package:flutter/material.dart';
 const black = Colors.black;
 const white = Colors.white;
 const blue = Color.fromARGB(255, 0, 195, 255);
-// const blue = Color.fromARGB(255, 28, 72, 166);
-
-// TODO: Update Splash screen
 
 // Logo for portfolio
 const logo = "images/1.png";

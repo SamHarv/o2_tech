@@ -15,7 +15,7 @@ final routerDelegate = BeamerDelegate(
             return const BeamPage(
               key: ValueKey('home'),
               type: BeamPageType.noTransition,
-              title: 'O2Tech Blood Pressure',
+              title: 'O2Tech',
               child: PortfolioView(),
             );
           },

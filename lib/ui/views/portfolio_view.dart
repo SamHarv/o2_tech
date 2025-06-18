@@ -1,9 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+// import 'package:animated_background/animated_background.dart';
 import 'package:o2_tech/ui/views/testimonials_view.dart';
 import 'package:o2_tech/ui/widgets/loading_widget.dart';
 
+import '../../config/constants.dart';
 import 'contact_view.dart';
 import 'digby_view.dart';
 import 'home_view.dart';
@@ -19,7 +21,8 @@ class PortfolioView extends StatefulWidget {
   State<PortfolioView> createState() => _PortfolioViewState();
 }
 
-class _PortfolioViewState extends State<PortfolioView> {
+class _PortfolioViewState extends State<PortfolioView>
+    with TickerProviderStateMixin {
   final pageController = PageController();
   int _index = 0; // Current page index
   // Animation properties for page transitions
@@ -27,6 +30,14 @@ class _PortfolioViewState extends State<PortfolioView> {
   final _curve = Curves.easeIn;
   // Detect whether mouse wheel is scrolling to prevent jank
   bool isMouse = false;
+
+  void scrollToSection(GlobalKey key) {
+    Scrollable.ensureVisible(
+      key.currentContext!,
+      duration: _animationDuration,
+      curve: _curve,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +62,7 @@ class _PortfolioViewState extends State<PortfolioView> {
                   curve: Curves.easeInOut,
                 );
               },
-              child: LoadingWidget(size: 50, duration: 10000),
+              child: LoadingWidget(size: 50, duration: 5000),
               //SizedBox(height: 40, child: Image.asset(logo)),
             ),
           ),
@@ -68,9 +79,9 @@ class _PortfolioViewState extends State<PortfolioView> {
               icon: FaIcon(
                 FontAwesomeIcons.envelope,
                 shadows: [
-                  Shadow(color: Colors.blue, blurRadius: 3),
-                  Shadow(color: Colors.blue, blurRadius: 6),
-                  Shadow(color: Colors.blue, blurRadius: 9),
+                  Shadow(color: blue, blurRadius: 3),
+                  Shadow(color: blue, blurRadius: 6),
+                  Shadow(color: blue, blurRadius: 9),
                 ],
               ),
               onPressed: () {
@@ -86,85 +97,115 @@ class _PortfolioViewState extends State<PortfolioView> {
         ],
       ),
       // body: Center(child: LoadingWidget(duration: 2500)),
-      body: ScrollConfiguration(
-        // Enable drag scrolling with mouse
-        behavior: ScrollConfiguration.of(context).copyWith(
-          dragDevices: {PointerDeviceKind.touch, PointerDeviceKind.mouse},
-        ),
-        child: GestureDetector(
-          onTap: () {
-            // Reset mouse state on tap
-            setState(() {
-              isMouse = false;
-            });
-          },
-          child: Listener(
-            onPointerSignal: (pointerSignal) {
-              if (pointerSignal is PointerScrollEvent) {
-                // Determine whether the user is scrolling with a mouse
-                if (pointerSignal.kind == PointerDeviceKind.mouse) {
-                  setState(() {
-                    isMouse = true;
-                  });
-                } else {
-                  setState(() {
-                    isMouse = false;
-                  });
-                }
-                // Custom scroll logic
-                if (pointerSignal.scrollDelta.dy > 0) {
-                  if (_index == 10) {
-                    return;
-                  }
-                  pageController.nextPage(
-                    duration: _animationDuration,
-                    curve: _curve,
-                  );
-                } else {
-                  if (_index == 0) {
-                    return;
-                  }
-                  pageController.previousPage(
-                    duration: _animationDuration,
-                    curve: _curve,
-                  );
-                }
-              }
-            },
-            child: PageView(
-              // NeverScrollableScrollPhysics prevents the PageView from
-              // scrolling with the mouse wheel as it causes jank, custom
-              // scroll logic is implemented instead
-              physics:
-                  isMouse
-                      ? const NeverScrollableScrollPhysics()
-                      : const PageScrollPhysics(),
-              scrollDirection: Axis.vertical,
-              controller: pageController,
-              pageSnapping: true,
-              // Handle page change
-              onPageChanged: (index) {
-                setState(() => _index = index);
-              },
-              // Pages to display
-              children: [
-                HomeView(),
-                AppView(app: apps[0]),
-                AppView(app: apps[1]),
-                AppView(app: apps[2]),
-                AppView(app: apps[3]),
-                AppView(app: apps[4]),
-                AppView(app: apps[5]),
-                AppView(app: apps[6]),
-                AppView(app: apps[7]),
-                DigbyView(),
-                TestimonialsView(),
-                ContactView(),
-              ],
-            ),
-          ),
-        ),
+      body:
+      // AnimatedBackground(
+      //   vsync: this,
+      //   behaviour: RandomParticleBehaviour(
+      //     options: const ParticleOptions(
+      //       baseColor: blue,
+      //       spawnOpacity: 0.0,
+      //       opacityChangeRate: 0.25,
+      //       minOpacity: 0.1,
+      //       maxOpacity: 0.4,
+      //       spawnMaxRadius: 10,
+      //       spawnMinSpeed: 500.0,
+      //       spawnMaxSpeed: 700.0,
+      //       particleCount: 10,
+      //     ),
+      //   ),
+      //   child:
+      // ScrollConfiguration(
+      //   // Enable drag scrolling with mouse
+      //   behavior: ScrollConfiguration.of(context).copyWith(
+      //     dragDevices: {
+      //       PointerDeviceKind.touch,
+      //       PointerDeviceKind.mouse,
+      //       PointerDeviceKind.trackpad,
+      //     },
+      //   ),
+      // child: GestureDetector(
+      //   // onTapDown: (details) {
+      //   //   // Reset mouse state on tap
+      //   //   setState(() {
+      //   //     isMouse = false;
+      //   //   });
+      //   // },
+      //   onVerticalDragUpdate: (details) {
+      //     // Reset mouse state on drag
+      //     setState(() {
+      //       isMouse = false;
+      //     });
+      //   },
+      //   child: Listener(
+      //     onPointerSignal: (pointerSignal) {
+      //       if (pointerSignal is PointerScrollEvent) {
+      //         // Determine whether the user is scrolling with a mouse
+      //         if (pointerSignal.kind == PointerDeviceKind.mouse ||
+      //             pointerSignal.kind == PointerDeviceKind.trackpad) {
+      //           setState(() {
+      //             isMouse = true;
+      //           });
+      //         } else {
+      //           setState(() {
+      //             isMouse = false;
+      //           });
+      //         }
+      //         // Custom scroll logic
+      //         if (pointerSignal.scrollDelta.dy > 0) {
+      //           if (_index == 11) {
+      //             return;
+      //           }
+      //           pageController.nextPage(
+      //             duration: _animationDuration,
+      //             curve: _curve,
+      //           );
+      //         } else if (pointerSignal.scrollDelta.dy < 0) {
+      //           if (_index == 0) {
+      //             return;
+      //           }
+      //           pageController.previousPage(
+      //             duration: _animationDuration,
+      //             curve: _curve,
+      //           );
+      //         }
+      //       }
+      //     },
+      // child:
+      PageView(
+        // NeverScrollableScrollPhysics prevents the PageView from
+        // scrolling with the mouse wheel as it causes jank, custom
+        // scroll logic is implemented instead
+        physics:
+            isMouse
+                ? const NeverScrollableScrollPhysics()
+                : const PageScrollPhysics(),
+        scrollDirection: Axis.vertical,
+        controller: pageController,
+        pageSnapping: true,
+        // Handle page change
+        onPageChanged: (index) {
+          setState(() => _index = index);
+        },
+        // Pages to display
+        children: [
+          HomeView(),
+          AppView(app: apps[0]),
+          AppView(app: apps[1]),
+          AppView(app: apps[2]),
+          AppView(app: apps[3]),
+          AppView(app: apps[4]),
+          AppView(app: apps[5]),
+          AppView(app: apps[6]),
+          AppView(app: apps[7]),
+          DigbyView(),
+          TestimonialsView(),
+          ContactView(),
+        ],
       ),
+      // ),
+      // ),
+      //   ),
+      // ),
     );
   }
 }
