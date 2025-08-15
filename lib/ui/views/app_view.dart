@@ -10,8 +10,6 @@ import '../widgets/fade_in_widget.dart';
 
 class AppView extends StatelessWidget {
   /// UI for displaying an app in the portfolio
-  ///
-  /// // TODO: COnstrain height
 
   /// The app to display
   final AppModel app;

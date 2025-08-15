@@ -6,14 +6,14 @@ import 'package:o2_tech/ui/views/portfolio_view.dart';
 import '../../ui/views/legal_view.dart';
 
 final routerDelegate = BeamerDelegate(
-  notFoundRedirectNamed: '/home',
-  initialPath: '/home',
+  notFoundRedirectNamed: '/',
+  initialPath: '/',
   locationBuilder:
       RoutesLocationBuilder(
         routes: {
-          '/home': (context, state, data) {
+          '/': (context, state, data) {
             return const BeamPage(
-              key: ValueKey('home'),
+              key: ValueKey(''),
               type: BeamPageType.noTransition,
               title: 'O2Tech',
               child: PortfolioView(),

@@ -31,6 +31,9 @@ class _PortfolioViewState extends State<PortfolioView>
   // Detect whether mouse wheel is scrolling to prevent jank
   bool isMouse = false;
 
+  final homeKey = GlobalKey();
+  final contactKey = GlobalKey();
+
   void scrollToSection(GlobalKey key) {
     Scrollable.ensureVisible(
       key.currentContext!,
@@ -45,12 +48,16 @@ class _PortfolioViewState extends State<PortfolioView>
     final mediaHeight = MediaQuery.sizeOf(context).height;
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 60,
         centerTitle: false,
         title: Padding(
           padding:
               (mediaWidth / mediaHeight > 0.9)
-                  ? const EdgeInsets.fromLTRB(80, 8, 8, 8)
+                  ? mediaWidth > 1250
+                      ? const EdgeInsets.fromLTRB(184, 8, 8, 8)
+                      : const EdgeInsets.fromLTRB(80, 8, 8, 8)
                   : const EdgeInsets.all(8),
+
           child: Tooltip(
             message: "Navigate Home",
             child: InkWell(
@@ -72,7 +79,9 @@ class _PortfolioViewState extends State<PortfolioView>
           Padding(
             padding:
                 (mediaWidth / mediaHeight > 0.9)
-                    ? const EdgeInsets.only(right: 80)
+                    ? mediaWidth > 1250
+                        ? const EdgeInsets.only(right: 184)
+                        : const EdgeInsets.only(right: 80)
                     : const EdgeInsets.all(0),
             child: IconButton(
               tooltip: "Navigate to Contact",
@@ -86,7 +95,7 @@ class _PortfolioViewState extends State<PortfolioView>
               ),
               onPressed: () {
                 pageController.animateToPage(
-                  11,
+                  12,
                   duration: const Duration(seconds: 1),
                   curve: Curves.easeInOut,
                 );
@@ -97,7 +106,7 @@ class _PortfolioViewState extends State<PortfolioView>
         ],
       ),
       // body: Center(child: LoadingWidget(duration: 2500)),
-      body:
+      // body:
       // AnimatedBackground(
       //   vsync: this,
       //   behaviour: RandomParticleBehaviour(
@@ -171,41 +180,106 @@ class _PortfolioViewState extends State<PortfolioView>
       //       }
       //     },
       // child:
-      PageView(
-        // NeverScrollableScrollPhysics prevents the PageView from
-        // scrolling with the mouse wheel as it causes jank, custom
-        // scroll logic is implemented instead
-        physics:
-            isMouse
-                ? const NeverScrollableScrollPhysics()
-                : const PageScrollPhysics(),
-        scrollDirection: Axis.vertical,
+      // PageView(
+      //   // NeverScrollableScrollPhysics prevents the PageView from
+      //   // scrolling with the mouse wheel as it causes jank, custom
+      //   // scroll logic is implemented instead
+      //   physics:
+      //       isMouse
+      //           ? const NeverScrollableScrollPhysics()
+      //           : const PageScrollPhysics(),
+      //   scrollDirection: Axis.vertical,
+      //   controller: pageController,
+      //   pageSnapping: true,
+      //   // Handle page change
+      //   onPageChanged: (index) {
+      //     setState(() => _index = index);
+      //   },
+      body: SingleChildScrollView(
+        physics: PageScrollPhysics(),
         controller: pageController,
-        pageSnapping: true,
-        // Handle page change
-        onPageChanged: (index) {
-          setState(() => _index = index);
-        },
-        // Pages to display
-        children: [
-          HomeView(),
-          AppView(app: apps[0]),
-          AppView(app: apps[1]),
-          AppView(app: apps[2]),
-          AppView(app: apps[3]),
-          AppView(app: apps[4]),
-          AppView(app: apps[5]),
-          AppView(app: apps[6]),
-          AppView(app: apps[7]),
-          DigbyView(),
-          TestimonialsView(),
-          ContactView(),
-        ],
+        child: Column(
+          // Pages to display
+          children: [
+            SizedBox(
+              key: homeKey,
+              width: mediaWidth,
+              height: mediaHeight - 60,
+              child: HomeView(),
+            ),
+            SizedBox(
+              width: mediaWidth,
+              height: mediaHeight - 60,
+              child: AppView(app: apps[0]),
+            ),
+            SizedBox(
+              width: mediaWidth,
+              height: mediaHeight - 60,
+              child: AppView(app: apps[1]),
+            ),
+            SizedBox(
+              width: mediaWidth,
+              height: mediaHeight - 60,
+              child: AppView(app: apps[2]),
+            ),
+            SizedBox(
+              width: mediaWidth,
+              height: mediaHeight - 60,
+              child: AppView(app: apps[3]),
+            ),
+            SizedBox(
+              width: mediaWidth,
+              height: mediaHeight - 60,
+              child: AppView(app: apps[4]),
+            ),
+            SizedBox(
+              width: mediaWidth,
+              height: mediaHeight - 60,
+              child: AppView(app: apps[5]),
+            ),
+            SizedBox(
+              width: mediaWidth,
+              height: mediaHeight - 60,
+              child: AppView(app: apps[6]),
+            ),
+            SizedBox(
+              width: mediaWidth,
+              height: mediaHeight - 60,
+              child: AppView(app: apps[7]),
+            ),
+            SizedBox(
+              width: mediaWidth,
+              height: mediaHeight - 60,
+              child: AppView(app: apps[8]),
+            ),
+            SizedBox(
+              width: mediaWidth,
+              height: mediaHeight - 60,
+              child: AppView(app: apps[9]),
+            ),
+            SizedBox(
+              width: mediaWidth,
+              height: mediaHeight - 60,
+              child: DigbyView(),
+            ),
+            SizedBox(
+              width: mediaWidth,
+              height: mediaHeight - 60,
+              child: TestimonialsView(),
+            ),
+            SizedBox(
+              key: contactKey,
+              width: mediaWidth,
+              height: mediaHeight - 60,
+              child: ContactView(),
+            ),
+          ],
+        ),
       ),
-      // ),
-      // ),
-      //   ),
-      // ),
     );
+    // ),
+    // ),
+    //   ),
+    // ),
   }
 }

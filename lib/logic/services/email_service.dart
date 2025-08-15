@@ -25,7 +25,7 @@ class EmailService {
       // Send email via Firestore
       await _mailCollection.add({
         'to':
-            'oxygentech@protonmail.com', // Your email where you want to receive messages
+            'info@o2tech.com.au', // Your email where you want to receive messages
         'message': {
           'subject': 'Enquiry from $name',
           'text': 'From: $name\nEmail: $email\n\nMessage:\n$message',

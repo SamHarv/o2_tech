@@ -26,7 +26,7 @@ class _LegalViewState extends State<LegalView> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            Beamer.of(context).beamToNamed("/home");
+            Beamer.of(context).beamToNamed("/");
           },
           icon: Icon(Icons.navigate_before),
         ),

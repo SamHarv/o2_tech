@@ -3,7 +3,15 @@ import '../models/app_model.dart';
 /// Data for the apps I have developed
 const apps = [
   AppModel(
-    title: "O2Tech Blood Pressure",
+    title: "Harv Printed",
+    description: "Online store for 3D printed products.",
+    screenshot: "images/harv_printed_screenshot.png",
+    logo: "images/harv_printed_circular.png",
+    githubUrl: "https://github.com/SamHarv/",
+    webUrl: "https://harvprinted.com.au/",
+  ),
+  AppModel(
+    title: "O2Tech BP",
     description: "Track your blood pressure in a dynamic app.",
     screenshot: "images/o2tech_bp.png",
     logo: "images/o2tech_bp_logo.png",
@@ -77,6 +85,14 @@ const apps = [
     logo: "images/sams_booklist_logo.png",
     githubUrl: "https://github.com/SamHarv/sams_book_list",
     webUrl: "https://sam-s-book-list.web.app/",
+  ),
+  AppModel(
+    title: "BAS",
+    description: "Website built for Building Approval Specialists.",
+    screenshot: "images/bas_screenshot.png",
+    logo: "images/bas.png",
+    githubUrl: "https://github.com/SamHarv/building_approval_specialists",
+    webUrl: "https://buildingapprovalspecialists.com.au/",
   ),
   AppModel(
     title: "Brighter Tomorrow",

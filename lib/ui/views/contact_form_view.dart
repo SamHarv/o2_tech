@@ -113,7 +113,7 @@ class _ContactFormViewState extends State<ContactFormView> {
             appBar: AppBar(
               leading: IconButton(
                 onPressed: () {
-                  Beamer.of(context).beamToNamed("/home");
+                  Beamer.of(context).beamToNamed("/");
                 },
                 icon: Icon(Icons.navigate_before),
               ),
@@ -300,7 +300,7 @@ class _ContactFormViewState extends State<ContactFormView> {
                                                                     UrlLauncher.email();
                                                                   },
                                                                   child: Text(
-                                                                    "oxygentech@protonmail.com",
+                                                                    "info@o2tech.com.au",
                                                                   ),
                                                                 ),
                                                               ],
