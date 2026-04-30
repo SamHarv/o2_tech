@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
           displayColor: white,
         ),
         appBarTheme: AppBarTheme(
-          color: black,
+          backgroundColor: black,
           systemOverlayStyle: SystemUiOverlayStyle.dark.copyWith(
             statusBarColor: black,
             systemNavigationBarColor: black,

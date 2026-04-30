@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -40,6 +41,25 @@ class _PortfolioViewState extends State<PortfolioView>
       duration: _animationDuration,
       curve: _curve,
     );
+  }
+
+  @override
+  void initState() {
+    void testAnalytics() async {
+      try {
+        await FirebaseAnalytics.instance.logEvent(
+          name: 'test_manual_event',
+          parameters: {'test_param': 'test_value'},
+        );
+        print('Analytics event sent successfully');
+      } catch (e) {
+        print('Analytics error: $e');
+      }
+    }
+
+    testAnalytics();
+
+    super.initState();
   }
 
   @override
@@ -95,7 +115,7 @@ class _PortfolioViewState extends State<PortfolioView>
               ),
               onPressed: () {
                 pageController.animateToPage(
-                  12,
+                  13,
                   duration: const Duration(seconds: 1),
                   curve: Curves.easeInOut,
                 );

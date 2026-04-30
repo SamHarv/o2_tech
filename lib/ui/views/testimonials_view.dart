@@ -4,11 +4,38 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../config/constants.dart';
 import '../../logic/services/adaptive_font.dart';
 import '../widgets/fade_in_widget.dart';
+import '../widgets/testimonial_widget.dart';
 
-class TestimonialsView extends StatelessWidget {
+class TestimonialsView extends StatefulWidget {
   /// UI for displaying testimonials for O2Tech
 
   const TestimonialsView({super.key});
+
+  @override
+  State<TestimonialsView> createState() => _TestimonialsViewState();
+}
+
+class _TestimonialsViewState extends State<TestimonialsView> {
+  final _controller = CarouselController();
+
+  final testimonials = [
+    TestimonialWidget(
+      testimonial: joshTestimonial,
+      name: "Joshua Morrow",
+      business: "Brighter Tomorrow Exercise Physiology",
+    ),
+    TestimonialWidget(
+      testimonial: jamesTestimonial,
+      name: "James Cunning",
+      business: "Building Approval Specialists",
+    ),
+  ];
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,281 +44,78 @@ class TestimonialsView extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(24),
       child:
-          // Check if orientation is landscape factoring in foldables
-          (mediaWidth / mediaHeight > 0.9)
-              ? Padding(
-                padding: const EdgeInsets.fromLTRB(80, 0, 80, 24),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // App information
-                    SizedBox(
-                      width:
-                          mediaWidth > 1050
-                              ? 1050 / 2 - 48
-                              : mediaWidth / 2 - 48,
-                      child: Column(
-                        spacing: 32,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          // Title
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              ConstrainedBox(
-                                constraints: BoxConstraints(
-                                  maxWidth:
-                                      mediaWidth > 1050
-                                          ? 1050 / 2 - 80
-                                          : mediaWidth / 2 - 80,
-                                ),
-                                child: FadeInWidget(
-                                  widgetToFadeIn: Text(
-                                    "Testimonial",
-                                    style: GoogleFonts.openSans(
-                                      textStyle: TextStyle(
-                                        fontSize: AdaptiveFontSize.getFontSize(
-                                          context,
-                                          24,
-                                        ),
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: "Open Sans",
-                                        color: white,
-                                        shadows: [
-                                          Shadow(color: blue, blurRadius: 3),
-                                          Shadow(color: blue, blurRadius: 6),
-                                          Shadow(color: blue, blurRadius: 9),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          // Testimonial content
-                          Row(
-                            children: [
-                              ConstrainedBox(
-                                constraints: BoxConstraints(
-                                  maxWidth:
-                                      mediaWidth > 1050
-                                          ? 1050 / 2 - 48
-                                          : mediaWidth / 2 - 48,
-                                ),
-                                child: FadeInWidget(
-                                  widgetToFadeIn: Text(
-                                    joshTestimonial,
-                                    style: TextStyle(
-                                      fontSize: AdaptiveFontSize.getFontSize(
-                                        context,
-                                        16,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          // Author
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              ConstrainedBox(
-                                constraints: BoxConstraints(
-                                  maxWidth:
-                                      mediaWidth > 1050
-                                          ? 1050 / 2 - 80
-                                          : mediaWidth / 2 - 80,
-                                ),
-                                child: FadeInWidget(
-                                  widgetToFadeIn: Text(
-                                    "Joshua Morrow",
-                                    style: GoogleFonts.openSans(
-                                      textStyle: TextStyle(
-                                        fontSize: AdaptiveFontSize.getFontSize(
-                                          context,
-                                          24,
-                                        ),
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: "Open Sans",
-                                        color: white,
-                                        shadows: [
-                                          Shadow(color: blue, blurRadius: 3),
-                                          Shadow(color: blue, blurRadius: 6),
-                                          Shadow(color: blue, blurRadius: 9),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          // Author's company
-                          Row(
-                            children: [
-                              ConstrainedBox(
-                                constraints: BoxConstraints(
-                                  maxWidth:
-                                      mediaWidth > 1050
-                                          ? 1050 / 2 - 48
-                                          : mediaWidth / 2 - 48,
-                                ),
-                                child: FadeInWidget(
-                                  widgetToFadeIn: Text(
-                                    "Brighter Tomorrow Exercise Physiology",
-                                    style: TextStyle(
-                                      fontSize: AdaptiveFontSize.getFontSize(
-                                        context,
-                                        16,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    // Image of Josh
-                    ConstrainedBox(
-                      constraints: BoxConstraints(
-                        maxWidth:
-                            mediaWidth > 1050
-                                ? 1050 / 2 - 160
-                                : mediaWidth / 2 - 160,
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 32),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(32),
-                          child: FadeInWidget(
-                            widgetToFadeIn: Image.asset("images/josh.jpeg"),
-                          ),
-                        ),
-                      ),
-                    ),
+      // CarouselView(
+      //   itemExtent: mediaWidth / 2,
+      //   children: [
+      //     Container(color: Colors.red),
+      //     Container(color: Colors.blue),
+      //     Container(color: Colors.green),
+      //   ],
+      // ),
+      // Check if orientation is landscape factoring in foldables
+      Column(
+        children: [
+          FadeInWidget(
+            widgetToFadeIn: Text(
+              "Testimonials",
+              style: GoogleFonts.openSans(
+                textStyle: TextStyle(
+                  fontSize: AdaptiveFontSize.getFontSize(context, 24),
+                  fontWeight: FontWeight.bold,
+                  fontFamily: "Open Sans",
+                  color: white,
+                  shadows: [
+                    Shadow(color: blue, blurRadius: 3),
+                    Shadow(color: blue, blurRadius: 6),
+                    Shadow(color: blue, blurRadius: 9),
                   ],
                 ),
-              )
-              // Portrait orientation
-              : Column(
-                spacing: 24,
-                children: [
-                  Row(
-                    children: [
-                      // Title
-                      ConstrainedBox(
-                        constraints: BoxConstraints(maxWidth: mediaWidth - 48),
-                        child: FadeInWidget(
-                          widgetToFadeIn: Text(
-                            "Testimonial",
-                            style: GoogleFonts.openSans(
-                              textStyle: TextStyle(
-                                fontSize: AdaptiveFontSize.getFontSize(
-                                  context,
-                                  24,
-                                ),
-                                fontWeight: FontWeight.bold,
-                                fontFamily: "Open Sans",
-                                color: white,
-                                shadows: [
-                                  Shadow(color: blue, blurRadius: 3),
-                                  Shadow(color: blue, blurRadius: 6),
-                                  Shadow(color: blue, blurRadius: 9),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  // Image of Josh
-                  Expanded(
-                    child: Row(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(32),
-                          child: FadeInWidget(
-                            widgetToFadeIn: Image.asset("images/josh.jpeg"),
-                          ),
-                        ),
-                      ],
+              ),
+            ),
+          ),
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    _controller.animateTo(
+                      _controller.offset - mediaWidth,
+                      curve: Curves.fastOutSlowIn,
+                      duration: const Duration(milliseconds: 500),
+                    );
+                  },
+                  icon: Icon(Icons.arrow_back),
+                ),
+                ConstrainedBox(
+                  constraints: BoxConstraints(maxWidth: 1050),
+                  child: SizedBox(
+                    width: mediaWidth - 140,
+                    child: CarouselView(
+                      itemSnapping: true,
+                      shrinkExtent: mediaWidth < 1050 ? mediaWidth - 140 : 1050,
+                      controller: _controller,
+                      backgroundColor: Colors.transparent,
+                      itemExtent: mediaWidth,
+                      children: testimonials,
                     ),
                   ),
-                  // Testimonial content
-                  Row(
-                    children: [
-                      ConstrainedBox(
-                        constraints: BoxConstraints(maxWidth: mediaWidth - 48),
-                        child: FadeInWidget(
-                          widgetToFadeIn: Text(
-                            joshTestimonial,
-                            style: TextStyle(
-                              fontSize: AdaptiveFontSize.getFontSize(
-                                context,
-                                16,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  // Author
-                  Row(
-                    children: [
-                      // Title
-                      ConstrainedBox(
-                        constraints: BoxConstraints(maxWidth: mediaWidth - 48),
-                        child: FadeInWidget(
-                          widgetToFadeIn: Text(
-                            "Joshua Morrow",
-                            style: GoogleFonts.openSans(
-                              textStyle: TextStyle(
-                                fontSize: AdaptiveFontSize.getFontSize(
-                                  context,
-                                  24,
-                                ),
-                                fontWeight: FontWeight.bold,
-                                fontFamily: "Open Sans",
-                                color: white,
-                                shadows: [
-                                  Shadow(color: blue, blurRadius: 3),
-                                  Shadow(color: blue, blurRadius: 6),
-                                  Shadow(color: blue, blurRadius: 9),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  // Author's company
-                  Row(
-                    children: [
-                      ConstrainedBox(
-                        constraints: BoxConstraints(maxWidth: mediaWidth - 48),
-                        child: FadeInWidget(
-                          widgetToFadeIn: Text(
-                            "Brighter Tomorrow Exercise Physiology",
-                            style: TextStyle(
-                              fontSize: AdaptiveFontSize.getFontSize(
-                                context,
-                                16,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    _controller.animateTo(
+                      _controller.offset + mediaWidth - 140,
+                      curve: Curves.fastOutSlowIn,
+                      duration: const Duration(milliseconds: 500),
+                    );
+                  },
+                  icon: Icon(Icons.arrow_forward),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

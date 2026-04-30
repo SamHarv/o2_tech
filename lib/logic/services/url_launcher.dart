@@ -13,7 +13,7 @@ class UrlLauncher {
 
   /// Email info@o2tech.com.au
   static Future<void> email() async {
-    final email = Uri(scheme: "mailto", path: "info@o2tech.com.au");
+    final email = Uri(scheme: "mailto", path: "sam@o2tech.com.au");
     if (!await launchUrl(email)) {
       throw 'Could not launch email';
     }

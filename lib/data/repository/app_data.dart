@@ -3,11 +3,22 @@ import '../models/app_model.dart';
 /// Data for the apps I have developed
 const apps = [
   AppModel(
+    title: "Kringle",
+    description: "Organise Secret Santa exchanges.",
+    screenshot: "images/kringle_screenshot.png",
+    logo: "images/kringle_logo.png",
+    githubUrl: "https://github.com/SamHarv/",
+    playStoreUrl:
+        "https://play.google.com/store/apps/details?id=com.o2tech.o2_kringle&hl=en_AU",
+    appStoreUrl: "https://apps.apple.com/au/app/kringle/id6753562083",
+  ),
+  AppModel(
     title: "Harv Printed",
     description: "Online store for 3D printed products.",
     screenshot: "images/harv_printed_screenshot.png",
     logo: "images/harv_printed_circular.png",
     githubUrl: "https://github.com/SamHarv/",
+
     webUrl: "https://harvprinted.com.au/",
   ),
   AppModel(

@@ -1,13 +1,20 @@
 import 'package:beamer/beamer.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:o2_tech/ui/views/contact_form_view.dart';
 import 'package:o2_tech/ui/views/portfolio_view.dart';
 
 import '../../ui/views/legal_view.dart';
 
+final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+final FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(
+  analytics: analytics,
+);
+
 final routerDelegate = BeamerDelegate(
   notFoundRedirectNamed: '/',
   initialPath: '/',
+  navigatorObservers: [observer],
   locationBuilder:
       RoutesLocationBuilder(
         routes: {

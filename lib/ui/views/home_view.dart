@@ -84,8 +84,7 @@ class _HomeViewState extends State<HomeView> {
                       ),
                       child: FadeInWidget(
                         widgetToFadeIn: Text(
-                          "I build apps & websites.\n"
-                          "Scroll down to see more.",
+                          "I build apps & websites for small businesses.",
                           style: GoogleFonts.openSans(
                             textStyle: TextStyle(
                               fontSize: AdaptiveFontSize.getFontSize(
@@ -138,8 +137,7 @@ class _HomeViewState extends State<HomeView> {
                             child: Container(
                               width: mediaWidth > 1000 ? 400 : 300,
                               decoration: BoxDecoration(
-                                color:
-                                    isHovered ? Colors.black87 : Colors.black,
+                                color: isHovered ? Colors.black87 : black,
                                 border:
                                     isPressed
                                         ? BoxBorder.all(color: blue, width: 1)
@@ -257,7 +255,7 @@ class _HomeViewState extends State<HomeView> {
                           ),
                           child: FadeInWidget(
                             widgetToFadeIn: Text(
-                              "I build apps & websites.",
+                              "I build apps & websites for small businesses.",
                               style: GoogleFonts.openSans(
                                 textStyle: TextStyle(
                                   fontSize: AdaptiveFontSize.getFontSize(
@@ -309,10 +307,7 @@ class _HomeViewState extends State<HomeView> {
                                 child: Container(
                                   width: mediaWidth > 1000 ? 400 : 300,
                                   decoration: BoxDecoration(
-                                    color:
-                                        isHovered
-                                            ? Colors.black87
-                                            : Colors.black,
+                                    color: isHovered ? Colors.black87 : black,
                                     border:
                                         isPressed
                                             ? BoxBorder.all(

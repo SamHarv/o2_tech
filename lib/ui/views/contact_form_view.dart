@@ -300,7 +300,7 @@ class _ContactFormViewState extends State<ContactFormView> {
                                                                     UrlLauncher.email();
                                                                   },
                                                                   child: Text(
-                                                                    "info@o2tech.com.au",
+                                                                    "sam@o2tech.com.au",
                                                                   ),
                                                                 ),
                                                               ],
