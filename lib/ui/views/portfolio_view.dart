@@ -33,6 +33,11 @@ class _PortfolioViewState extends State<PortfolioView> {
     );
   }
 
+  Future<void> _handleRefresh() async {
+    await Future.delayed(const Duration(milliseconds: 400));
+    _scrollToTop();
+  }
+
   void _scrollToContact() {
     final ctx = _contactKey.currentContext;
     if (ctx == null) return;
@@ -104,27 +109,34 @@ class _PortfolioViewState extends State<PortfolioView> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        controller: _scrollController,
-        physics: const ClampingScrollPhysics(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // Hero — full viewport height
-            SizedBox(
-              height: h - 64,
-              child: const HomeView(),
-            ),
-            // Work section
-            _WorkSection(apps: apps),
-            // Testimonials
-            const TestimonialsView(),
-            // Contact — anchored for scroll-to
-            SizedBox(
-              key: _contactKey,
-              child: const ContactView(),
-            ),
-          ],
+      body: RefreshIndicator(
+        onRefresh: _handleRefresh,
+        color: blue,
+        backgroundColor: const Color(0xFF1C1C1C),
+        child: SingleChildScrollView(
+          controller: _scrollController,
+          physics: const BouncingScrollPhysics(
+            parent: AlwaysScrollableScrollPhysics(),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Hero — full viewport height
+              SizedBox(
+                height: h - 64,
+                child: const HomeView(),
+              ),
+              // Work section
+              _WorkSection(apps: apps),
+              // Testimonials
+              const TestimonialsView(),
+              // Contact — anchored for scroll-to
+              SizedBox(
+                key: _contactKey,
+                child: const ContactView(),
+              ),
+            ],
+          ),
         ),
       ),
     );

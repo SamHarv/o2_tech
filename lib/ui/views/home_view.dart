@@ -59,7 +59,7 @@ class _HomeViewState extends State<HomeView> {
               ),
               const SizedBox(width: 8),
               Text(
-                "Flutter Mobile & Web Developer",
+                "Mobile & Web Developer",
                 style: GoogleFonts.openSans(
                   fontSize: AdaptiveFontSize.getFontSize(context, 12),
                   color: blue,
@@ -163,9 +163,7 @@ class _HomeViewState extends State<HomeView> {
     final size = MediaQuery.sizeOf(context);
     final w = size.width;
     final h = size.height;
-    return w / h > 0.9
-        ? _buildLandscape(context, h)
-        : _buildPortrait(context);
+    return w / h > 0.9 ? _buildLandscape(context, h) : _buildPortrait(context);
   }
 
   // ── Landscape ─────────────────────────────────────────────────────────────
@@ -207,7 +205,9 @@ class _HomeViewState extends State<HomeView> {
                               "I build apps & websites\nfor small businesses.",
                               style: GoogleFonts.openSans(
                                 fontSize: AdaptiveFontSize.getFontSize(
-                                    context, 16),
+                                  context,
+                                  16,
+                                ),
                                 fontWeight: FontWeight.w400,
                                 color: Colors.white.withValues(alpha: 0.55),
                                 height: 1.65,
@@ -215,8 +215,7 @@ class _HomeViewState extends State<HomeView> {
                             ),
                           ),
                           const SizedBox(height: 40),
-                          FadeInWidget(
-                              widgetToFadeIn: _contactButton(context)),
+                          FadeInWidget(widgetToFadeIn: _contactButton(context)),
                         ],
                       ),
                     ),
@@ -263,9 +262,7 @@ class _HomeViewState extends State<HomeView> {
             children: [
               _badge(context),
               const SizedBox(height: 20),
-              FadeInWidget(
-                widgetToFadeIn: TextHeadingWidget(text: "O2 Tech"),
-              ),
+              FadeInWidget(widgetToFadeIn: TextHeadingWidget(text: "O2 Tech")),
               const SizedBox(height: 12),
               FadeInWidget(
                 widgetToFadeIn: Text(
