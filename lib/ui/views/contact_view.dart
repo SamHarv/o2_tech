@@ -2,101 +2,179 @@ import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../widgets/fade_in_widget.dart';
 
 import '/config/constants.dart';
 import '/logic/services/adaptive_font.dart';
 import '/logic/services/url_launcher.dart';
+import '../widgets/fade_in_widget.dart';
+import '../widgets/text_heading_widget.dart';
 
 class ContactView extends StatelessWidget {
-  /// UI to display contact information
   const ContactView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final mediaWidth = MediaQuery.sizeOf(context).width;
-    return Padding(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        spacing: 32,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: mediaWidth - 48),
-            child: FadeInWidget(
-              widgetToFadeIn: Text(
-                "Sam Harvey",
-                style: GoogleFonts.openSans(
-                  textStyle: TextStyle(
-                    fontSize: AdaptiveFontSize.getFontSize(context, 24),
-                    fontWeight: FontWeight.bold,
-                    fontFamily: "Open Sans",
-                    color: white,
-                    shadows: [
-                      Shadow(color: blue, blurRadius: 3),
-                      Shadow(color: blue, blurRadius: 6),
-                      Shadow(color: blue, blurRadius: 9),
+    final w = MediaQuery.sizeOf(context).width;
+
+    return SizedBox(
+      width: double.infinity,
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1200),
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 24,
+              vertical: w > 600 ? 80 : 56,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                FadeInWidget(
+                  widgetToFadeIn: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Get In Touch",
+                        style: GoogleFonts.openSans(
+                          fontSize: AdaptiveFontSize.getFontSize(context, 28),
+                          fontWeight: FontWeight.bold,
+                          color: white,
+                          shadows: const [
+                            Shadow(color: blue, blurRadius: 4),
+                            Shadow(color: blue, blurRadius: 10),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Container(width: 40, height: 2, color: blue),
                     ],
                   ),
                 ),
-              ),
-            ),
-          ),
-          // Email & social icons
-          FadeInWidget(
-            widgetToFadeIn: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Email
-                IconButton(
-                  hoverColor: blue,
-                  tooltip: "Contact Sam",
-                  icon: FaIcon(FontAwesomeIcons.envelope),
-                  onPressed: () => Beamer.of(context).beamToNamed("/contact"),
+                const SizedBox(height: 40),
+                FadeInWidget(
+                  widgetToFadeIn: TextHeadingWidget(text: "Sam Harvey"),
                 ),
-                // Youtube
-                IconButton(
-                  hoverColor: blue,
-                  tooltip: "Youtube",
-                  icon: FaIcon(FontAwesomeIcons.youtube),
-                  onPressed:
-                      () => UrlLauncher.launch(
-                        "https://www.youtube.com/channel/UCO6fpaaJYCkVSZQIhA4Gi8Q",
+                const SizedBox(height: 32),
+                FadeInWidget(
+                  widgetToFadeIn: Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: [
+                      _ContactChip(
+                        icon: FontAwesomeIcons.envelope,
+                        label: "Message",
+                        onTap: () => Beamer.of(context).beamToNamed("/contact"),
                       ),
-                ),
-                // Instagram
-                IconButton(
-                  hoverColor: blue,
-                  tooltip: "Instagram",
-                  icon: FaIcon(FontAwesomeIcons.instagram),
-                  onPressed:
-                      () => UrlLauncher.launch(
-                        "https://www.instagram.com/o2tech2024?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+                      _ContactChip(
+                        icon: FontAwesomeIcons.youtube,
+                        label: "YouTube",
+                        onTap: () => UrlLauncher.launch(
+                          "https://www.youtube.com/channel/UCO6fpaaJYCkVSZQIhA4Gi8Q",
+                        ),
                       ),
-                ),
-                // Facebook
-                IconButton(
-                  hoverColor: blue,
-                  tooltip: "Facebook",
-                  icon: FaIcon(FontAwesomeIcons.facebook),
-                  onPressed:
-                      () => UrlLauncher.launch(
-                        "https://www.facebook.com/profile.php?id=61557448528374",
+                      _ContactChip(
+                        icon: FontAwesomeIcons.instagram,
+                        label: "Instagram",
+                        onTap: () => UrlLauncher.launch(
+                          "https://www.instagram.com/o2tech2024?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+                        ),
                       ),
-                ),
-                IconButton(
-                  hoverColor: blue,
-                  tooltip: "Privacy & Terms",
-                  icon: Icon(Icons.folder, size: 28),
-                  // icon: FaIcon(FontAwesomeIcons.info),
-                  onPressed: () {
-                    Beamer.of(context).beamToNamed("/privacy");
-                  },
+                      _ContactChip(
+                        icon: FontAwesomeIcons.facebook,
+                        label: "Facebook",
+                        onTap: () => UrlLauncher.launch(
+                          "https://www.facebook.com/profile.php?id=61557448528374",
+                        ),
+                      ),
+                      _ContactChip(
+                        icon: FontAwesomeIcons.solidFolder,
+                        label: "Legal",
+                        onTap: () => Beamer.of(context).beamToNamed("/privacy"),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
           ),
-        ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ContactChip extends StatefulWidget {
+  final IconData icon;
+  final String label;
+  final VoidCallback onTap;
+
+  const _ContactChip({
+    required this.icon,
+    required this.label,
+    required this.onTap,
+  });
+
+  @override
+  State<_ContactChip> createState() => _ContactChipState();
+}
+
+class _ContactChipState extends State<_ContactChip> {
+  bool _hovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Tooltip(
+      message: widget.label,
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        onEnter: (_) => setState(() => _hovered = true),
+        onExit: (_) => setState(() => _hovered = false),
+        child: GestureDetector(
+          onTap: widget.onTap,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 150),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+            decoration: BoxDecoration(
+              color: _hovered
+                  ? blue.withValues(alpha: 0.12)
+                  : Colors.white.withValues(alpha: 0.04),
+              border: Border.all(
+                color: _hovered
+                    ? blue.withValues(alpha: 0.5)
+                    : Colors.white.withValues(alpha: 0.1),
+              ),
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: _hovered
+                  ? [
+                      BoxShadow(
+                        color: blue.withValues(alpha: 0.15),
+                        blurRadius: 16,
+                      )
+                    ]
+                  : [],
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                FaIcon(
+                  widget.icon,
+                  color: _hovered ? blue : Colors.white.withValues(alpha: 0.7),
+                  size: 16,
+                ),
+                const SizedBox(width: 10),
+                Text(
+                  widget.label,
+                  style: GoogleFonts.openSans(
+                    fontSize: AdaptiveFontSize.getFontSize(context, 13),
+                    fontWeight: FontWeight.w500,
+                    color: _hovered ? blue : Colors.white.withValues(alpha: 0.7),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

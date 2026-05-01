@@ -2,6 +2,39 @@ import '../models/app_model.dart';
 
 /// Data for the apps I have developed
 const apps = [
+  // AppModel(
+  //   title: "lacunar",
+  //   description: "",
+  //   screenshot: "images/lacunar_screenshot.png",
+  //   logo: "images/lacunar_logo.png",
+  //   githubUrl: "https://github.com/SamHarv/lacunar",
+  //   playStoreUrl:
+  //       "https://play.google.com/store/apps/details?id=com.o2tech.lacunar",
+  //   appStoreUrl: "https://apps.apple.com/us/app/lacunar/id6441873733",
+  //   webUrl: "https://lacunar.web.app/",
+  // ),
+  // AppModel(
+  //   title: "notes.",
+  //   description: "Simple note-taking app.",
+  //   screenshot: "images/plans.png",
+  //   logo: "images/plans_logo.png",
+  //   githubUrl: "https://github.com/SamHarv/plans",
+  //   playStoreUrl:
+  //       "https://play.google.com/store/apps/details?id=com.o2tech.plans",
+  //   appStoreUrl: "https://apps.apple.com/us/app/plans/id6479982953",
+  //   webUrl: "https://plans-6cf22.web.app/",
+  // ),
+  AppModel(
+    title: "Plans",
+    description: "Simple note-taking app.",
+    screenshot: "images/plans.png",
+    logo: "images/plans_logo.png",
+    githubUrl: "https://github.com/SamHarv/plans",
+    playStoreUrl:
+        "https://play.google.com/store/apps/details?id=com.o2tech.plans",
+    appStoreUrl: "https://apps.apple.com/us/app/plans/id6479982953",
+    // webUrl: "https://plans-6cf22.web.app/",
+  ),
   AppModel(
     title: "Kringle",
     description: "Organise Secret Santa exchanges.",
@@ -18,44 +51,20 @@ const apps = [
     screenshot: "images/harv_printed_screenshot.png",
     logo: "images/harv_printed_circular.png",
     githubUrl: "https://github.com/SamHarv/",
-
     webUrl: "https://harvprinted.com.au/",
   ),
   AppModel(
-    title: "O2Tech BP",
-    description: "Track your blood pressure in a dynamic app.",
-    screenshot: "images/o2tech_bp.png",
-    logo: "images/o2tech_bp_logo.png",
-    githubUrl: "https://github.com/SamHarv/O2Tech_Blood_Pressure/tree/main",
-    playStoreUrl:
-        "https://play.google.com/store/apps/details?id=com.o2tech.o2_bp",
-    appStoreUrl:
-        "https://apps.apple.com/us/app/o2tech-blood-pressure/id6741873733",
-    webUrl: "https://o2tech-blood-pressure.web.app/",
-  ),
-  AppModel(
-    title: "Plans",
-    description: "Simple note-taking app.",
-    screenshot: "images/plans.png",
-    logo: "images/plans_logo.png",
-    githubUrl: "https://github.com/SamHarv/plans",
-    playStoreUrl:
-        "https://play.google.com/store/apps/details?id=com.o2tech.plans",
-    appStoreUrl: "https://apps.apple.com/us/app/plans/id6479982953",
-    webUrl: "https://plans-6cf22.web.app/",
-  ),
-  AppModel(
-    title: "O2Tech Calculators",
+    title: "RGB Colour Tool",
     description:
-        "Mortgage Repayment Calculator and Compound Interest Calculator.",
-    screenshot: "images/o2tech_calculators.png",
-    logo: "images/o2tech_calculators_logo.png",
-    githubUrl: "https://github.com/SamHarv/o2_calculators",
+        "Play with values for red, green, and "
+        "blue to generate a colour for reference.",
+    screenshot: "images/rgb_tool.png",
+    logo: "images/rgb_tool_logo.png",
+    githubUrl: "https://github.com/SamHarv/rgb_tool",
     playStoreUrl:
-        "https://play.google.com/store/apps/details?id=com.o2tech.calculators",
-    appStoreUrl:
-        "https://apps.apple.com/us/app/o2tech-calculators/id6741880330",
-    webUrl: "https://o2-calculators.web.app/",
+        "https://play.google.com/store/apps/details?id=com.o2tech.colours",
+    appStoreUrl: "https://apps.apple.com/us/app/rgb-colour-tool/id6742676407",
+    // webUrl: "https://rgb-tool.web.app/",
   ),
   AppModel(
     title: "grids.",
@@ -77,17 +86,29 @@ const apps = [
     webUrl: "https://thoughtsapp.com.au/",
   ),
   AppModel(
-    title: "RGB Colour Tool",
-    description:
-        "Play with values for red, green, and "
-        "blue to generate a colour for reference.",
-    screenshot: "images/rgb_tool.png",
-    logo: "images/rgb_tool_logo.png",
-    githubUrl: "https://github.com/SamHarv/rgb_tool",
+    title: "O2Tech BP",
+    description: "Track your blood pressure in a dynamic app.",
+    screenshot: "images/o2tech_bp.png",
+    logo: "images/o2tech_bp_logo.png",
+    githubUrl: "https://github.com/SamHarv/O2Tech_Blood_Pressure/tree/main",
     playStoreUrl:
-        "https://play.google.com/store/apps/details?id=com.o2tech.colours",
-    appStoreUrl: "https://apps.apple.com/us/app/rgb-colour-tool/id6742676407",
-    webUrl: "https://rgb-tool.web.app/",
+        "https://play.google.com/store/apps/details?id=com.o2tech.o2_bp",
+    appStoreUrl:
+        "https://apps.apple.com/us/app/o2tech-blood-pressure/id6741873733",
+    // webUrl: "https://o2tech-blood-pressure.web.app/",
+  ),
+  AppModel(
+    title: "O2Tech Calculators",
+    description:
+        "Mortgage Repayment Calculator and Compound Interest Calculator.",
+    screenshot: "images/o2tech_calculators.png",
+    logo: "images/o2tech_calculators_logo.png",
+    githubUrl: "https://github.com/SamHarv/o2_calculators",
+    playStoreUrl:
+        "https://play.google.com/store/apps/details?id=com.o2tech.calculators",
+    appStoreUrl:
+        "https://apps.apple.com/us/app/o2tech-calculators/id6741880330",
+    // webUrl: "https://o2-calculators.web.app/",
   ),
   AppModel(
     title: "Sam's Booklist",
@@ -114,4 +135,12 @@ const apps = [
     githubUrl: "https://github.com/SamHarv/brighter_tomorrow",
     webUrl: "https://brightertomorrow.com.au/",
   ),
+  // AppModel(
+  //   title: "David Lacy Art",
+  //   description: "Portfolio website for artist, David Lacy.",
+  //   screenshot: "images/david_lacy_art_screenshot.png",
+  //   logo: "images/david_lacy_art_logo.png",
+  //   githubUrl: "https://github.com/SamHarv/david_lacy_art",
+  //   webUrl: "https://davidlacyart.com/",
+  // ),
 ];

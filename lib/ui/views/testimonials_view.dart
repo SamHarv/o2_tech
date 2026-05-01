@@ -6,116 +6,101 @@ import '../../logic/services/adaptive_font.dart';
 import '../widgets/fade_in_widget.dart';
 import '../widgets/testimonial_widget.dart';
 
-class TestimonialsView extends StatefulWidget {
-  /// UI for displaying testimonials for O2Tech
-
+class TestimonialsView extends StatelessWidget {
   const TestimonialsView({super.key});
 
   @override
-  State<TestimonialsView> createState() => _TestimonialsViewState();
-}
-
-class _TestimonialsViewState extends State<TestimonialsView> {
-  final _controller = CarouselController();
-
-  final testimonials = [
-    TestimonialWidget(
-      testimonial: joshTestimonial,
-      name: "Joshua Morrow",
-      business: "Brighter Tomorrow Exercise Physiology",
-    ),
-    TestimonialWidget(
-      testimonial: jamesTestimonial,
-      name: "James Cunning",
-      business: "Building Approval Specialists",
-    ),
-  ];
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final mediaWidth = MediaQuery.sizeOf(context).width;
-    final mediaHeight = MediaQuery.sizeOf(context).height;
-    return Padding(
-      padding: const EdgeInsets.all(24),
-      child:
-      // CarouselView(
-      //   itemExtent: mediaWidth / 2,
-      //   children: [
-      //     Container(color: Colors.red),
-      //     Container(color: Colors.blue),
-      //     Container(color: Colors.green),
-      //   ],
-      // ),
-      // Check if orientation is landscape factoring in foldables
-      Column(
-        children: [
-          FadeInWidget(
-            widgetToFadeIn: Text(
-              "Testimonials",
-              style: GoogleFonts.openSans(
-                textStyle: TextStyle(
-                  fontSize: AdaptiveFontSize.getFontSize(context, 24),
-                  fontWeight: FontWeight.bold,
-                  fontFamily: "Open Sans",
-                  color: white,
-                  shadows: [
-                    Shadow(color: blue, blurRadius: 3),
-                    Shadow(color: blue, blurRadius: 6),
-                    Shadow(color: blue, blurRadius: 9),
-                  ],
-                ),
-              ),
+    final w = MediaQuery.sizeOf(context).width;
+    final isWide = w > 700;
+
+    return Container(
+      width: double.infinity,
+      color: Colors.white.withValues(alpha: 0.02),
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1200),
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 24,
+              vertical: w > 600 ? 80 : 56,
             ),
-          ),
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                IconButton(
-                  onPressed: () {
-                    _controller.animateTo(
-                      _controller.offset - mediaWidth,
-                      curve: Curves.fastOutSlowIn,
-                      duration: const Duration(milliseconds: 500),
-                    );
-                  },
-                  icon: Icon(Icons.arrow_back),
+                FadeInWidget(
+                  widgetToFadeIn: _sectionHeading(context),
                 ),
-                ConstrainedBox(
-                  constraints: BoxConstraints(maxWidth: 1050),
-                  child: SizedBox(
-                    width: mediaWidth - 140,
-                    child: CarouselView(
-                      itemSnapping: true,
-                      shrinkExtent: mediaWidth < 1050 ? mediaWidth - 140 : 1050,
-                      controller: _controller,
-                      backgroundColor: Colors.transparent,
-                      itemExtent: mediaWidth,
-                      children: testimonials,
-                    ),
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    _controller.animateTo(
-                      _controller.offset + mediaWidth - 140,
-                      curve: Curves.fastOutSlowIn,
-                      duration: const Duration(milliseconds: 500),
-                    );
-                  },
-                  icon: Icon(Icons.arrow_forward),
+                const SizedBox(height: 48),
+                FadeInWidget(
+                  widgetToFadeIn: isWide
+                      ? IntrinsicHeight(
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              const Expanded(
+                                child: TestimonialWidget(
+                                  testimonial: joshTestimonial,
+                                  name: "Joshua Morrow",
+                                  business:
+                                      "Brighter Tomorrow Exercise Physiology",
+                                ),
+                              ),
+                              const SizedBox(width: 20),
+                              const Expanded(
+                                child: TestimonialWidget(
+                                  testimonial: jamesTestimonial,
+                                  name: "James Cunning",
+                                  business: "Building Approval Specialists",
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      : const Column(
+                          children: [
+                            TestimonialWidget(
+                              testimonial: joshTestimonial,
+                              name: "Joshua Morrow",
+                              business:
+                                  "Brighter Tomorrow Exercise Physiology",
+                            ),
+                            SizedBox(height: 20),
+                            TestimonialWidget(
+                              testimonial: jamesTestimonial,
+                              name: "James Cunning",
+                              business: "Building Approval Specialists",
+                            ),
+                          ],
+                        ),
                 ),
               ],
             ),
           ),
-        ],
+        ),
       ),
+    );
+  }
+
+  Widget _sectionHeading(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Testimonials",
+          style: GoogleFonts.openSans(
+            fontSize: AdaptiveFontSize.getFontSize(context, 28),
+            fontWeight: FontWeight.bold,
+            color: white,
+            shadows: const [
+              Shadow(color: blue, blurRadius: 4),
+              Shadow(color: blue, blurRadius: 10),
+            ],
+          ),
+        ),
+        const SizedBox(height: 8),
+        Container(width: 40, height: 2, color: blue),
+      ],
     );
   }
 }

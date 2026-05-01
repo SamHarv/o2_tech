@@ -1,15 +1,13 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../widgets/fade_in_widget.dart';
 
 import '/config/constants.dart';
 import '/logic/services/adaptive_font.dart';
+import '../widgets/fade_in_widget.dart';
 import '../widgets/text_heading_widget.dart';
 
 class HomeView extends StatefulWidget {
-  /// UI to display home page
-
   const HomeView({super.key});
 
   @override
@@ -17,410 +15,313 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  double get mediaWidth => MediaQuery.sizeOf(context).width;
-  double get mediaHeight => MediaQuery.sizeOf(context).height;
+  bool _btnHovered = false;
+  bool _btnPressed = false;
+  bool _badgeVisible = false;
 
-  bool isPressed = false;
-  bool isHovered = false;
-
-  // Adaptive width for image of Sam
-  double adaptiveImageWidth(double width) {
-    if (mediaWidth / mediaHeight > 0.9) {
-      return width * 0.4;
-    } else if (mediaWidth > 500) {
-      return width * 0.8;
-    } else {
-      return width;
-    }
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 100), () {
+      if (mounted) setState(() => _badgeVisible = true);
+    });
   }
 
-  // Adaptive width for text
-  double adaptiveTextWidth(double width) {
-    if (mediaWidth / mediaHeight > 0.9) {
-      return width * 0.5;
-    } else {
-      return width;
-    }
+  // ── Eyebrow badge ─────────────────────────────────────────────────────────
+
+  Widget _badge(BuildContext context) {
+    return AnimatedSlide(
+      offset: _badgeVisible ? Offset.zero : const Offset(0, 0.5),
+      duration: const Duration(milliseconds: 700),
+      curve: Curves.easeOutCubic,
+      child: AnimatedOpacity(
+        opacity: _badgeVisible ? 1.0 : 0.0,
+        duration: const Duration(milliseconds: 600),
+        curve: Curves.easeOut,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+          decoration: BoxDecoration(
+            border: Border.all(color: blue.withValues(alpha: 0.4)),
+            borderRadius: BorderRadius.circular(24),
+            color: blue.withValues(alpha: 0.08),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 7,
+                height: 7,
+                decoration: const BoxDecoration(
+                  color: blue,
+                  shape: BoxShape.circle,
+                  boxShadow: [BoxShadow(color: blue, blurRadius: 6)],
+                ),
+              ),
+              const SizedBox(width: 8),
+              Text(
+                "Flutter Mobile & Web Developer",
+                style: GoogleFonts.openSans(
+                  fontSize: AdaptiveFontSize.getFontSize(context, 12),
+                  color: blue,
+                  fontWeight: FontWeight.w500,
+                  letterSpacing: 0.5,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
+
+  // ── CTA button ────────────────────────────────────────────────────────────
+
+  Widget _contactButton(BuildContext context) {
+    final beamer = Beamer.of(context);
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) => setState(() => _btnHovered = true),
+      onExit: (_) => setState(() => _btnHovered = false),
+      child: GestureDetector(
+        onTapDown: (_) => setState(() => _btnPressed = true),
+        onTapUp: (_) {
+          setState(() => _btnPressed = false);
+          beamer.beamToNamed("/contact");
+        },
+        onTapCancel: () => setState(() => _btnPressed = false),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 150),
+          padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 32),
+          decoration: BoxDecoration(
+            color:
+                _btnHovered ? blue.withValues(alpha: 0.12) : Colors.transparent,
+            border: Border.all(color: blue, width: 1.5),
+            borderRadius: BorderRadius.circular(8),
+            boxShadow:
+                _btnPressed
+                    ? []
+                    : [
+                      BoxShadow(
+                        color: blue.withValues(alpha: 0.3),
+                        blurRadius: 18,
+                      ),
+                    ],
+          ),
+          child: Text(
+            "Get In Touch",
+            style: GoogleFonts.openSans(
+              fontSize: AdaptiveFontSize.getFontSize(context, 14),
+              fontWeight: FontWeight.w600,
+              color: white,
+              letterSpacing: 0.5,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _scrollCue() =>
+      FadeInWidget(widgetToFadeIn: Image.asset("images/scroll.gif", width: 28));
+
+  // ── Photo card — rounded, blue-bordered, glow ─────────────────────────────
+
+  Widget _photoCard(double height) {
+    return SizedBox(
+      height: height,
+      child: AspectRatio(
+        aspectRatio: 0.75,
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: blue.withValues(alpha: 0.3), width: 1),
+            boxShadow: [
+              BoxShadow(
+                color: blue.withValues(alpha: 0.18),
+                blurRadius: 48,
+                spreadRadius: -4,
+              ),
+            ],
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(19),
+            child: Image.asset(
+              "images/sam_office.png",
+              fit: BoxFit.cover,
+              alignment: Alignment.topCenter,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  // ── Layout selection ──────────────────────────────────────────────────────
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.bottomRight,
-      children: [
-        // If landscape orientation (factoring in foldables)
-        if (mediaWidth / mediaHeight > 0.9)
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    final size = MediaQuery.sizeOf(context);
+    final w = size.width;
+    final h = size.height;
+    return w / h > 0.9
+        ? _buildLandscape(context, h)
+        : _buildPortrait(context);
+  }
+
+  // ── Landscape ─────────────────────────────────────────────────────────────
+  // Two columns: text (flex 6) left, photo card (flex 4) right.
+  // Row stretches to full height; text content is centered in its column
+  // via an inner Expanded + mainAxisAlignment.center. Scroll cue pins to
+  // the bottom of the left column, never behind the photo.
+
+  Widget _buildLandscape(BuildContext context, double h) {
+    final photoH = ((h - 64) * 0.72).clamp(280.0, 500.0);
+
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 1200),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Heading to break over 2 lines if needed
-                  Padding(
-                    padding:
-                        mediaWidth > 1250
-                            ? const EdgeInsets.fromLTRB(200, 24, 24, 24)
-                            : const EdgeInsets.fromLTRB(96, 24, 24, 24),
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(
-                        maxWidth: mediaWidth * 0.5 - 48,
-                      ),
-                      child: FadeInWidget(
-                        widgetToFadeIn: TextHeadingWidget(text: "O2 Tech"),
-                      ),
-                    ),
-                  ),
-                  // Subheading
-                  Padding(
-                    padding:
-                        mediaWidth > 1250
-                            ? const EdgeInsets.fromLTRB(200, 24, 24, 24)
-                            : const EdgeInsets.fromLTRB(96, 24, 24, 24),
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(
-                        maxWidth: mediaWidth * 0.5 - 48,
-                      ),
-                      child: FadeInWidget(
-                        widgetToFadeIn: Text(
-                          "I build apps & websites for small businesses.",
-                          style: GoogleFonts.openSans(
-                            textStyle: TextStyle(
-                              fontSize: AdaptiveFontSize.getFontSize(
-                                context,
-                                18,
-                              ),
-                              fontWeight: FontWeight.bold,
-                              fontFamily: "Open Sans",
-                              color: white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  // Contact button
-                  Padding(
-                    padding:
-                        mediaWidth > 1250
-                            ? const EdgeInsets.fromLTRB(200, 24, 24, 24)
-                            : const EdgeInsets.fromLTRB(96, 24, 24, 24),
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(
-                        maxWidth: mediaWidth * 0.5 - 48,
-                      ),
-                      child: FadeInWidget(
-                        widgetToFadeIn: Tooltip(
-                          message: "Navigate to Contact Form",
-                          child: InkWell(
-                            onHover:
-                                (value) => setState(() {
-                                  isHovered = value;
-                                }),
-                            borderRadius: BorderRadius.all(Radius.circular(32)),
-                            onTap: () {
-                              setState(() {
-                                isPressed = true;
-                              });
-                              Future.delayed(
-                                const Duration(milliseconds: 150),
-                              ).then((value) {
-                                setState(() {
-                                  isPressed = false;
-                                });
-                                // Navigate to contact page here
-                                // ignore: use_build_context_synchronously
-                                Beamer.of(context).beamToNamed("/contact");
-                              });
-                            },
-                            child: Container(
-                              width: mediaWidth > 1000 ? 400 : 300,
-                              decoration: BoxDecoration(
-                                color: isHovered ? Colors.black87 : black,
-                                border:
-                                    isPressed
-                                        ? BoxBorder.all(color: blue, width: 1)
-                                        : BoxBorder.all(color: blue, width: 2),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(32),
-                                ),
-                                boxShadow:
-                                    isPressed
-                                        ? []
-                                        : [
-                                          BoxShadow(color: blue, blurRadius: 3),
-                                          BoxShadow(color: blue, blurRadius: 6),
-                                          BoxShadow(color: blue, blurRadius: 9),
-                                          BoxShadow(
-                                            color: blue,
-                                            blurRadius: 12,
-                                          ),
-                                        ],
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8),
-                                child: Center(
-                                  child: Text(
-                                    "Contact",
-                                    style: GoogleFonts.openSans(
-                                      textStyle: TextStyle(
-                                        fontSize: AdaptiveFontSize.getFontSize(
-                                          context,
-                                          18,
-                                        ),
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: "Open Sans",
-                                        color: white,
-                                        shadows: [
-                                          Shadow(color: blue, blurRadius: 3),
-                                          Shadow(color: blue, blurRadius: 6),
-                                          Shadow(color: blue, blurRadius: 9),
-                                          Shadow(color: blue, blurRadius: 12),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              // Image of Sam
-              FadeInWidget(
-                widgetToFadeIn: Align(
-                  alignment: Alignment.centerRight,
-                  child: Stack(
-                    children: [
-                      const CircularProgressIndicator(),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: blue,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(32),
-                            bottomLeft: Radius.circular(32),
-                          ),
-                        ),
-                        child: ConstrainedBox(
-                          constraints: BoxConstraints(
-                            maxWidth: mediaWidth * 0.5 - 56,
-                          ),
-                          child: SizedBox(
-                            child: Image.asset(
-                              "images/sam_office.png",
-                              width: adaptiveImageWidth(mediaWidth),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          )
-        else
-          // Portrait orientation
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Heading to break over 2 lines if needed
-                      Padding(
-                        padding: const EdgeInsets.all(24),
-                        child: ConstrainedBox(
-                          constraints: BoxConstraints(
-                            maxWidth: adaptiveTextWidth(mediaWidth) - 48,
-                          ),
-                          child: FadeInWidget(
+              // Left — text content
+              Expanded(
+                flex: 6,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _badge(context),
+                          const SizedBox(height: 24),
+                          FadeInWidget(
                             widgetToFadeIn: TextHeadingWidget(text: "O2 Tech"),
                           ),
-                        ),
-                      ),
-                      // Subheading
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(24, 0, 24, 24),
-                        child: ConstrainedBox(
-                          constraints: BoxConstraints(
-                            maxWidth: adaptiveTextWidth(mediaWidth) - 48,
-                          ),
-                          child: FadeInWidget(
+                          const SizedBox(height: 16),
+                          FadeInWidget(
                             widgetToFadeIn: Text(
-                              "I build apps & websites for small businesses.",
+                              "I build apps & websites\nfor small businesses.",
                               style: GoogleFonts.openSans(
-                                textStyle: TextStyle(
-                                  fontSize: AdaptiveFontSize.getFontSize(
-                                    context,
-                                    18,
-                                  ),
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: "Open Sans",
-                                  color: white,
-                                ),
+                                fontSize: AdaptiveFontSize.getFontSize(
+                                    context, 16),
+                                fontWeight: FontWeight.w400,
+                                color: Colors.white.withValues(alpha: 0.55),
+                                height: 1.65,
                               ),
                             ),
                           ),
-                        ),
-                      ),
-                      // Contact button
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(24, 12, 24, 24),
-                        child: ConstrainedBox(
-                          constraints: BoxConstraints(
-                            maxWidth: adaptiveTextWidth(mediaWidth) - 48,
-                          ),
-                          child: FadeInWidget(
-                            widgetToFadeIn: Tooltip(
-                              message: "Navigate to Contact Form",
-                              child: InkWell(
-                                onHover:
-                                    (value) => setState(() {
-                                      isHovered = value;
-                                    }),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(32),
-                                ),
-                                onTap: () {
-                                  setState(() {
-                                    isPressed = true;
-                                  });
-                                  Future.delayed(
-                                    const Duration(milliseconds: 150),
-                                  ).then((value) {
-                                    setState(() {
-                                      isPressed = false;
-                                    });
-                                    // Navigate to contact page here
-                                    // ignore: use_build_context_synchronously
-                                    Beamer.of(context).beamToNamed("/contact");
-                                  });
-                                },
-                                child: Container(
-                                  width: mediaWidth > 1000 ? 400 : 300,
-                                  decoration: BoxDecoration(
-                                    color: isHovered ? Colors.black87 : black,
-                                    border:
-                                        isPressed
-                                            ? BoxBorder.all(
-                                              color: blue,
-                                              width: 1,
-                                            )
-                                            : BoxBorder.all(
-                                              color: blue,
-                                              width: 2,
-                                            ),
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(32),
-                                    ),
-                                    boxShadow:
-                                        isPressed
-                                            ? []
-                                            : [
-                                              BoxShadow(
-                                                color: blue,
-                                                blurRadius: 3,
-                                              ),
-                                              BoxShadow(
-                                                color: blue,
-                                                blurRadius: 6,
-                                              ),
-                                              BoxShadow(
-                                                color: blue,
-                                                blurRadius: 9,
-                                              ),
-                                              BoxShadow(
-                                                color: blue,
-                                                blurRadius: 12,
-                                              ),
-                                            ],
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8),
-                                    child: Center(
-                                      child: Text(
-                                        "Contact",
-                                        style: GoogleFonts.openSans(
-                                          textStyle: TextStyle(
-                                            fontSize:
-                                                AdaptiveFontSize.getFontSize(
-                                                  context,
-                                                  18,
-                                                ),
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: "Open Sans",
-                                            color: white,
-                                            shadows: [
-                                              Shadow(
-                                                color: blue,
-                                                blurRadius: 3,
-                                              ),
-                                              Shadow(
-                                                color: blue,
-                                                blurRadius: 6,
-                                              ),
-                                              Shadow(
-                                                color: blue,
-                                                blurRadius: 9,
-                                              ),
-                                              Shadow(
-                                                color: blue,
-                                                blurRadius: 12,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              // Image of Sam
-              FadeInWidget(
-                widgetToFadeIn: Padding(
-                  padding: const EdgeInsets.only(left: 24, top: 24),
-                  child: Align(
-                    alignment: Alignment.bottomRight,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: blue,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(32),
-                          bottomLeft: Radius.circular(32),
-                        ),
-                      ),
-                      child: Image.asset(
-                        "images/sam_office.png",
-                        width: adaptiveImageWidth(mediaWidth),
+                          const SizedBox(height: 40),
+                          FadeInWidget(
+                              widgetToFadeIn: _contactButton(context)),
+                        ],
                       ),
                     ),
-                  ),
+                    // Scroll cue anchored at the bottom of the text column
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 24),
+                      child: _scrollCue(),
+                    ),
+                  ],
+                ),
+              ),
+              // Gap between columns
+              const SizedBox(width: 48),
+              // Right — photo card, vertically centred
+              Expanded(
+                flex: 4,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: FadeInWidget(widgetToFadeIn: _photoCard(photoH)),
                 ),
               ),
             ],
           ),
-        // Animation to prompt scrolling
-        Align(
-          alignment: Alignment(0, 1),
-          child: FadeInWidget(
-            widgetToFadeIn: Image.asset("images/scroll.gif", width: 40),
+        ),
+      ),
+    );
+  }
+
+  // ── Portrait ──────────────────────────────────────────────────────────────
+  // Text block at the top; photo card fills all remaining space as a rounded
+  // bordered card (no edge-to-edge bleed). Scroll cue is Positioned so it
+  // always clears the photo.
+
+  Widget _buildPortrait(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Text section — natural height
+        Padding(
+          padding: const EdgeInsets.fromLTRB(24, 36, 24, 0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _badge(context),
+              const SizedBox(height: 20),
+              FadeInWidget(
+                widgetToFadeIn: TextHeadingWidget(text: "O2 Tech"),
+              ),
+              const SizedBox(height: 12),
+              FadeInWidget(
+                widgetToFadeIn: Text(
+                  "Apps & websites for small businesses.",
+                  style: GoogleFonts.openSans(
+                    fontSize: AdaptiveFontSize.getFontSize(context, 14),
+                    color: Colors.white.withValues(alpha: 0.55),
+                    height: 1.6,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 24),
+              FadeInWidget(widgetToFadeIn: _contactButton(context)),
+            ],
           ),
+        ),
+        const SizedBox(height: 16),
+        // Photo card — expands to fill all remaining viewport space
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: FadeInWidget(
+              widgetToFadeIn: Container(
+                width: double.infinity,
+                height: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(
+                    color: blue.withValues(alpha: 0.3),
+                    width: 1,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: blue.withValues(alpha: 0.12),
+                      blurRadius: 32,
+                    ),
+                  ],
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(19),
+                  child: Image.asset(
+                    "images/sam_office.png",
+                    fit: BoxFit.cover,
+                    alignment: Alignment.topCenter,
+                    width: double.infinity,
+                    height: double.infinity,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        // Scroll cue — centred below the photo, clearly visible
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          child: Center(child: _scrollCue()),
         ),
       ],
     );
