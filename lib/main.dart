@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       routerDelegate: routerDelegate,
       routeInformationParser: BeamerParser(),
-      title: 'O2 Tech',
+      title: 'O\u2082 Tech',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.dark(primary: black, secondary: blue),

@@ -197,7 +197,9 @@ class _HomeViewState extends State<HomeView> {
                           _badge(context),
                           const SizedBox(height: 24),
                           FadeInWidget(
-                            widgetToFadeIn: TextHeadingWidget(text: "O2 Tech"),
+                            widgetToFadeIn: TextHeadingWidget(
+                              text: "O\u2082 Tech",
+                            ),
                           ),
                           const SizedBox(height: 16),
                           FadeInWidget(
@@ -262,7 +264,9 @@ class _HomeViewState extends State<HomeView> {
             children: [
               _badge(context),
               const SizedBox(height: 20),
-              FadeInWidget(widgetToFadeIn: TextHeadingWidget(text: "O2 Tech")),
+              FadeInWidget(
+                widgetToFadeIn: TextHeadingWidget(text: "O\u2082 Tech"),
+              ),
               const SizedBox(height: 12),
               FadeInWidget(
                 widgetToFadeIn: Text(

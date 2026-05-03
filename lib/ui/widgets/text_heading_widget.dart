@@ -15,6 +15,7 @@ class TextHeadingWidget extends StatelessWidget {
       overflow: TextOverflow.clip,
       style: GoogleFonts.openSans(
         textStyle: TextStyle(
+          fontFeatures: [FontFeature.subscripts()],
           fontSize: AdaptiveFontSize.getFontSize(context, 60),
           fontWeight: FontWeight.bold,
           fontFamily: "Open Sans",

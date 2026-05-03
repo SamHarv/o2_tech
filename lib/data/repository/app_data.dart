@@ -86,7 +86,7 @@ const apps = [
     webUrl: "https://thoughtsapp.com.au/",
   ),
   AppModel(
-    title: "O2Tech BP",
+    title: "O\u2082Tech BP",
     description: "Track your blood pressure in a dynamic app.",
     screenshot: "images/o2tech_bp.png",
     logo: "images/o2tech_bp_logo.png",
@@ -98,7 +98,7 @@ const apps = [
     // webUrl: "https://o2tech-blood-pressure.web.app/",
   ),
   AppModel(
-    title: "O2Tech Calculators",
+    title: "O\u2082Tech Calculators",
     description:
         "Mortgage Repayment Calculator and Compound Interest Calculator.",
     screenshot: "images/o2tech_calculators.png",

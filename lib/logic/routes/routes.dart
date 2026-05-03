@@ -22,7 +22,7 @@ final routerDelegate = BeamerDelegate(
             return const BeamPage(
               key: ValueKey(''),
               type: BeamPageType.noTransition,
-              title: 'O2Tech',
+              title: 'O\u2082Tech',
               child: PortfolioView(),
             );
           },
