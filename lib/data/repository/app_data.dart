@@ -139,7 +139,7 @@ const apps = [
     title: "David Lacy Art",
     description: "Portfolio website for artist, David Lacy.",
     screenshot: "images/david_lacy_art_screenshot.png",
-    logo: "images/david_lacy_art_logo.png",
+    logo: "images/dave.png",
     githubUrl: "https://github.com/SamHarv/david_lacy_art",
     webUrl: "https://davidlacyart.com/",
   ),
