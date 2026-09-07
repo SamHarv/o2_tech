@@ -25,14 +25,14 @@ const apps = [
   //   webUrl: "https://plans-6cf22.web.app/",
   // ),
   AppModel(
-    title: "Plans",
+    title: "scribbles.",
     description: "Simple note-taking app.",
     screenshot: "images/plans.png",
     logo: "images/plans_logo.png",
     githubUrl: "https://github.com/SamHarv/plans",
     playStoreUrl:
         "https://play.google.com/store/apps/details?id=com.o2tech.plans",
-    appStoreUrl: "https://apps.apple.com/us/app/plans/id6479982953",
+    appStoreUrl: "https://apps.apple.com/us/app/scribbles/id6479982953",
     // webUrl: "https://plans-6cf22.web.app/",
   ),
   AppModel(
@@ -44,6 +44,16 @@ const apps = [
     playStoreUrl:
         "https://play.google.com/store/apps/details?id=com.o2tech.o2_kringle&hl=en_AU",
     appStoreUrl: "https://apps.apple.com/au/app/kringle/id6753562083",
+  ),
+  AppModel(
+    title: "Harv3d",
+    description: "Convert 2D Artwork into Layered 3D objects.",
+    screenshot: "images/harv3d_screenshot.png",
+    logo: "images/harv3d_logo.png",
+    githubUrl: "https://github.com/SamHarv/",
+    playStoreUrl:
+        "https://play.google.com/store/apps/details?id=com.o2tech.harv3d",
+    appStoreUrl: "https://apps.apple.com/us/app/harv3d/id6776918959",
   ),
   AppModel(
     title: "Harv Printed",
@@ -99,8 +109,7 @@ const apps = [
   ),
   AppModel(
     title: "O\u2082Tech Calculators",
-    description:
-        "Mortgage Repayment Calculator and Compound Interest Calculator.",
+    description: "Mortgage Repayment and Compound Interest Calculator.",
     screenshot: "images/o2tech_calculators.png",
     logo: "images/o2tech_calculators_logo.png",
     githubUrl: "https://github.com/SamHarv/o2_calculators",
@@ -127,6 +136,14 @@ const apps = [
     webUrl: "https://buildingapprovalspecialists.com.au/",
   ),
   AppModel(
+    title: "David Lacy Art",
+    description: "Portfolio website for artist, David Lacy.",
+    screenshot: "images/david_lacy_art_screenshot.png",
+    logo: "images/david_lacy_art_logo.png",
+    githubUrl: "https://github.com/SamHarv/david_lacy_art",
+    webUrl: "https://davidlacyart.com/",
+  ),
+  AppModel(
     title: "Brighter Tomorrow",
     description:
         "Informational web app for Brighter Tomorrow Exercise Physiology.",
@@ -135,12 +152,4 @@ const apps = [
     githubUrl: "https://github.com/SamHarv/brighter_tomorrow",
     webUrl: "https://brightertomorrow.com.au/",
   ),
-  // AppModel(
-  //   title: "David Lacy Art",
-  //   description: "Portfolio website for artist, David Lacy.",
-  //   screenshot: "images/david_lacy_art_screenshot.png",
-  //   logo: "images/david_lacy_art_logo.png",
-  //   githubUrl: "https://github.com/SamHarv/david_lacy_art",
-  //   webUrl: "https://davidlacyart.com/",
-  // ),
 ];

@@ -104,7 +104,7 @@ class ContactView extends StatelessWidget {
 }
 
 class _ContactChip extends StatefulWidget {
-  final IconData icon;
+  final FaIconData icon;
   final String label;
   final VoidCallback onTap;
 

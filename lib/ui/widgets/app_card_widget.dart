@@ -298,7 +298,7 @@ class _EntryTileState extends State<_EntryTile> {
         child: Row(
           children: [
             widget.entry.isFa
-                ? FaIcon(widget.entry.icon as IconData,
+                ? FaIcon(widget.entry.icon as FaIconData,
                     color: _hovered ? blue : white, size: 20)
                 : Icon(widget.entry.icon as IconData,
                     color: _hovered ? blue : white, size: 22),
@@ -386,7 +386,7 @@ class _CardLinkState extends State<_CardLink> {
                   size: 18,
                 )
               : FaIcon(
-                  widget.icon as IconData,
+                  widget.icon as FaIconData,
                   color: _hovered ? blue : Colors.white54,
                   size: 16,
                 ),

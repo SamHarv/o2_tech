@@ -121,7 +121,7 @@ class _DigbyViewState extends State<DigbyView> {
         child: Row(
           children: [
             isFa
-                ? FaIcon(icon as IconData, color: white, size: 20)
+                ? FaIcon(icon as FaIconData, color: white, size: 20)
                 : Icon(icon as IconData, color: white, size: 22),
             const SizedBox(width: 16),
             Expanded(
@@ -291,7 +291,7 @@ class _CardIconState extends State<_CardIcon> {
             borderRadius: BorderRadius.circular(8),
           ),
           child: widget.isFa
-              ? FaIcon(widget.icon as IconData,
+              ? FaIcon(widget.icon as FaIconData,
                   color: _hovered ? blue : Colors.white54, size: 16)
               : Icon(widget.icon as IconData,
                   color: _hovered ? blue : Colors.white54, size: 18),
