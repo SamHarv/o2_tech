@@ -13,17 +13,6 @@ const apps = [
   //   appStoreUrl: "https://apps.apple.com/us/app/lacunar/id6441873733",
   //   webUrl: "https://lacunar.web.app/",
   // ),
-  // AppModel(
-  //   title: "notes.",
-  //   description: "Simple note-taking app.",
-  //   screenshot: "images/plans.png",
-  //   logo: "images/plans_logo.png",
-  //   githubUrl: "https://github.com/SamHarv/plans",
-  //   playStoreUrl:
-  //       "https://play.google.com/store/apps/details?id=com.o2tech.plans",
-  //   appStoreUrl: "https://apps.apple.com/us/app/plans/id6479982953",
-  //   webUrl: "https://plans-6cf22.web.app/",
-  // ),
   AppModel(
     title: "scribbles.",
     description: "Simple note-taking app.",
@@ -77,6 +66,22 @@ const apps = [
     // webUrl: "https://rgb-tool.web.app/",
   ),
   AppModel(
+    title: "QR Code Generator",
+    description: "Generate QR codes for free.",
+    screenshot: "",
+    logo: "images/qr_logo.png",
+    githubUrl: "",
+    webUrl: "https://qrcode.o2tech.com.au/",
+  ),
+  AppModel(
+    title: "Contentment",
+    description: "A serene view with a meditation timer.",
+    screenshot: "",
+    logo: "images/o2_S_black.png",
+    githubUrl: "",
+    webUrl: "https://contentment.au/",
+  ),
+  AppModel(
     title: "grids.",
     description: "Flexible coloured grid app - track habits, create art.",
     screenshot: "images/grids.png",
@@ -125,7 +130,7 @@ const apps = [
     screenshot: "images/sams_booklist.png",
     logo: "images/sams_booklist_logo.png",
     githubUrl: "https://github.com/SamHarv/sams_book_list",
-    webUrl: "https://sam-s-book-list.web.app/",
+    webUrl: "https://booklist.au/",
   ),
   AppModel(
     title: "BAS",
@@ -145,8 +150,7 @@ const apps = [
   ),
   AppModel(
     title: "Brighter Tomorrow",
-    description:
-        "Informational web app for Brighter Tomorrow Exercise Physiology.",
+    description: "Website for Brighter Tomorrow Exercise Physiology.",
     screenshot: "images/brighter_tomorrow.png",
     logo: "images/brighter_tomorrow_logo.png",
     githubUrl: "https://github.com/SamHarv/brighter_tomorrow",
